@@ -93,3 +93,41 @@ char	**ft_split(char const *s, char c)
 	arr[j] = 0;
 	return (arr);
 }
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = 0;
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (ptr)
+		ft_bzero(ptr, count * size);
+	return (ptr);
+}
+
+char *ft_strcat(char *dst, const char *src)
+{
+	int i;
+	int j;
+
+	i = ft_strlen(dst);
+	j = 0;
+	while (src[j] != '\0')
+	{
+		dst[i] = src[j];
+		i++;
+		j++;
+	}
+	dst[i] = '\0';
+}

@@ -7,28 +7,20 @@
 
 int main (int argc, char **argv)
 {
-    int infile_fd;
-    int outfile_fd;
-    char *path = "/usr/bin/cat";
-    char *command[] = {"cat", 0}; 
-    
     t_cmd *cmds;
 
-    cmds = get_cmds(argc - 3, argv + 2);
+    cmds = get_cmds(argc - 3, (const char**)(argv + 2));
     print_cmd(argc - 3, cmds);
-    free_cmds(argc - 3, cmds);
 
-
-   
-   /* if (set_std_io("in.txt", "out.txt"))
+    if (set_std_io("in.txt", "out.txt"))
     {
         write(STD_OUT, "Works!\n", 7);
     }
-    if (execve(path, command, NULL) == -1)
+    if (execve(cmds[0].path, cmds[0].cmd, NULL) == -1)
     {
         write(STD_OUT, "Deu muito errado\n", 17);
     }
-    */
-
+    
+    free_cmds(argc - 3, cmds);
     return (0);
 }

@@ -31,7 +31,7 @@ int set_std_io(char *infile, char *outfile)
         printf("pipex: %s\n", strerror(errno));
         return(0);  
     }
-    out_fd = open(outfile, O_WRONLY);
+    out_fd = open(outfile, O_TRUNC | O_WRONLY);
     if (out_fd)
     {
         dup2(out_fd, STDOUT_FILENO);
