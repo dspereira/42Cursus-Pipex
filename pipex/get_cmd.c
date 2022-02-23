@@ -25,9 +25,9 @@ t_cmd *get_cmds(int size, const char **cmds)
 	while (i < size)
 	{
 		cmd[i].cmd = ft_split(cmds[i], ' ');
+		cmd[i].path = get_cmd_path(cmd[i].cmd[0]);
 		i++;
 	}
-	cmd[0].path = get_cmd_path(cmd[0].cmd[0]);
 	return (cmd);
 }
 
