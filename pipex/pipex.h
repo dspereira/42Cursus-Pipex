@@ -28,7 +28,8 @@ typedef struct s_pipe
 
 int set_std_io(char *infile, char *outfile);
 
-t_cmd *get_cmds(int size, const char **cmds);
+//t_cmd *get_cmds(int size, const char **cmds);
+t_cmd *get_cmds(int size, const char **cmds, const char **paths);
 void free_cmds(int size, t_cmd *cmds);
 // Função de teste retirar no final
 void print_cmd(int size, t_cmd *cmds);

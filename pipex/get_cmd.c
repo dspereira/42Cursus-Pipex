@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-char *get_cmd_path(const char *cmd)
+char *get_cmd_path1(const char *cmd)
 {
 	char *path;
 	int size;
@@ -13,7 +13,35 @@ char *get_cmd_path(const char *cmd)
 	return (path);
 }
 
-t_cmd *get_cmds(int size, const char **cmds)
+char *get_cmd_path(const char *cmd, const char **paths)
+{
+	char *path;
+	int size;
+	int i;
+
+	i = 0;
+	while (paths[i])
+	{
+		size = ft_strlen(paths[i]) + ft_strlen(cmd) + 1;
+		path = ft_calloc(size + 1, sizeof(char));
+		if (!path)
+			return (0);
+		ft_strcat(path, paths[i]);
+		ft_strcat(path, "/");
+		ft_strcat(path, cmd);
+		if (access(path, X_OK) == 0)
+			break;
+		else
+		{
+			free(path);
+			path = NULL;
+		} 	
+		i++;
+	}
+	return (path);
+}
+
+t_cmd *get_cmds(int size, const char **cmds, const char **paths)
 {
 	t_cmd *cmd;
 	int i;
@@ -25,7 +53,7 @@ t_cmd *get_cmds(int size, const char **cmds)
 	while (i < size)
 	{
 		cmd[i].cmd = ft_split(cmds[i], ' ');
-		cmd[i].path = get_cmd_path(cmd[i].cmd[0]);
+		cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
 		i++;
 	}
 	return (cmd);

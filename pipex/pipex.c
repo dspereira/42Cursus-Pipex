@@ -18,16 +18,16 @@ int main (int argc, char **argv, char **envp)
         int i = 0;
         while (paths[i])
         {
-            printf("%s\n",paths[i]);
+            //printf("%s\n",paths[i]);
             i++;
         }
     }
     else 
         printf("Nao existe o path\n");
 
+    cmds = get_cmds(argc - 3, (const char**)(argv + 2), (const char **)paths);
 
-    /*
-    cmds = get_cmds(argc - 3, (const char**)(argv + 2));
+    //cmds = get_cmds(argc - 3, (const char**)(argv + 2));
     if (redirect_infile("in.txt") == -1)
         return (1);
 
@@ -68,7 +68,7 @@ int main (int argc, char **argv, char **envp)
         close(p.r_fd);
         free_cmds(argc - 3, cmds); 
     }
-    */
+    
 
     return (0);
 }
