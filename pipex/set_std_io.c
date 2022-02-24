@@ -72,5 +72,5 @@ int redirect_infile(const char *infile)
 
 int redirect_outfile(int oldfd, const char *outfile)
 {
-
+    return (0);
 }
