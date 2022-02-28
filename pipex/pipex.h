@@ -50,4 +50,6 @@ int close_pipe(t_pipe p);
 char **get_path(char **envp);
 void free_path(char **m);
 
+int exec_cmd(int in_fd, int out_fd, t_cmd cmd);
+
 #endif
