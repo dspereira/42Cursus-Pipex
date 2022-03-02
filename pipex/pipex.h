@@ -10,7 +10,6 @@
 #include <fcntl.h>
 #include <sys/wait.h>
 
-
 //#define CMDS_PATH "/usr/bin/"
 #define CMDS_PATH "/bin/"
 
@@ -20,11 +19,27 @@ typedef struct s_cmd
     char **cmd;
 }   t_cmd;
 
+
+
+
 typedef struct s_pipe
 {
     int w_fd;
     int r_fd;
 }   t_pipe;
+
+typedef struct s_fd
+{
+    int w;
+    int r;
+}   t_fd;
+
+typedef struct s_pipe_fd
+{
+    int write;
+    int read;
+}   t_pipe_fd;
+
 
 int set_std_io(char *infile, char *outfile);
 
@@ -51,5 +66,9 @@ char **get_path(char **envp);
 void free_path(char **m);
 
 int exec_cmd(int in_fd, int out_fd, t_cmd cmd);
+
+
+int open_pipe1(t_fd *p);
+int close_fd(int *fd);
 
 #endif
