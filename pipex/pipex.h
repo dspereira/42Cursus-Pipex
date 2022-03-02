@@ -19,9 +19,6 @@ typedef struct s_cmd
     char **cmd;
 }   t_cmd;
 
-
-
-
 typedef struct s_pipe
 {
     int w_fd;
@@ -49,12 +46,6 @@ void free_cmds(int size, t_cmd *cmds);
 // Função de teste retirar no final
 void print_cmd(int size, t_cmd *cmds);
 
-char	**ft_split(char const *s, char c);
-size_t	ft_strlen(const char *s);
-void	*ft_calloc(size_t count, size_t size);
-char *ft_strcat(char *dst, const char *src);
-char	*ft_strnstr(const char *s1, const char *s2, size_t n);
-
 
 int redirect_infile(const char *infile);
 int redirect_io(int oldfd, int newfd);
@@ -70,5 +61,15 @@ int exec_cmd(int in_fd, int out_fd, t_cmd cmd);
 
 int open_pipe1(t_fd *p);
 int close_fd(int *fd);
+
+
+/* utils.h */
+size_t	ft_strlen(const char *s);
+char	**ft_split(char const *s, char c);
+
+/* utils2.h */
+void	*ft_calloc(size_t count, size_t size);
+char *ft_strcat(char *dst, const char *src);
+char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 #endif

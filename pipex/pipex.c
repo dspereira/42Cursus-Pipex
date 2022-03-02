@@ -6,7 +6,6 @@
 // gcc pipex.c set_std_io.c get_cmd.c ft_split.c pipe.c get_path.c exec_cmd.c
 
 
-
 void set_cmd_fd(t_fd *cmd_fd, int *r_fd, int *w_fd)
 {
     cmd_fd->r = *r_fd;
