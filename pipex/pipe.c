@@ -12,10 +12,11 @@ int open_pipe(t_fd *p)
 		p->w = fd[1];
 	}
 	else
-		printf("pipex: %s\n", strerror(errno));
+		perror(PROGRAM_NAME);
 	return (err);
 }
 
+// talvez para retirar
 int close_fd(int *fd)
 {
 	int err;

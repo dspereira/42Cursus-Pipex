@@ -12,6 +12,7 @@
 
 //#define CMDS_PATH "/usr/bin/"
 #define CMDS_PATH "/bin/"
+#define PROGRAM_NAME "pipex"
 
 typedef struct s_cmd
 {

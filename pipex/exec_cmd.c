@@ -1,5 +1,17 @@
 #include "pipex.h"
 
+int redirect_io(int oldfd, int newfd)
+{
+    int err;
+
+    err = dup2(oldfd, newfd);
+    if (err == -1)
+    {
+        perror("pipex");
+    }
+    return(err);
+}
+
 int exec_cmd(int in_fd, int out_fd, t_cmd cmd)
 {
 	int pid;
