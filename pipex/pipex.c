@@ -3,7 +3,7 @@
 #define STD_IN      0
 #define STD_OUT     1
 
-// gcc pipex.c set_std_io.c get_cmd.c ft_split.c pipe.c get_path.c exec_cmd.c
+// gcc pipex.c set_std_io.c get_cmd.c pipe.c get_path.c exec_cmd.c
 
 
 void set_cmd_fd(t_fd *cmd_fd, int *r_fd, int *w_fd)
@@ -60,7 +60,7 @@ int main (int argc, char **argv, char **envp)
     int i = 0;
     while (i < size)
     {
-        open_pipe1(&pipe_fd[i%2]);
+        open_pipe(&pipe_fd[i%2]);
         if (i == 0)
             get_cmd_fd(&cmd_fd, pipe_fd, "teste", 0);
         else if (i == size -1)

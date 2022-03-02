@@ -19,24 +19,11 @@ typedef struct s_cmd
     char **cmd;
 }   t_cmd;
 
-typedef struct s_pipe
-{
-    int w_fd;
-    int r_fd;
-}   t_pipe;
-
 typedef struct s_fd
 {
     int w;
     int r;
 }   t_fd;
-
-typedef struct s_pipe_fd
-{
-    int write;
-    int read;
-}   t_pipe_fd;
-
 
 int set_std_io(char *infile, char *outfile);
 
@@ -50,18 +37,16 @@ void print_cmd(int size, t_cmd *cmds);
 int redirect_infile(const char *infile);
 int redirect_io(int oldfd, int newfd);
 
-int open_pipe(t_pipe *p);
-int close_pipe(t_pipe p);
-
 char **get_path(char **envp);
 void free_path(char **m);
 
 int exec_cmd(int in_fd, int out_fd, t_cmd cmd);
 
 
-int open_pipe1(t_fd *p);
+/* pipe.c */
+int open_pipe(t_fd *p);
+// Não á necessidade desta função rever
 int close_fd(int *fd);
-
 
 /* utils.h */
 size_t	ft_strlen(const char *s);
