@@ -26,6 +26,12 @@ typedef struct s_fd
     int r;
 }   t_fd;
 
+typedef struct s_fds
+{
+    int size;
+    t_fd *fd;
+}   t_fds;
+
 int set_std_io(char *infile, char *outfile);
 
 //t_cmd *get_cmds(int size, const char **cmds);
@@ -57,5 +63,10 @@ char	**ft_split(char const *s, char c);
 void	*ft_calloc(size_t count, size_t size);
 char *ft_strcat(char *dst, const char *src);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
+
+
+//t_fd *set_fd(char *infile, char *outfile, int size);
+t_fds set_fd(char *infile, char *outfile, int size);
+int close_fds(t_fds fds);
 
 #endif
