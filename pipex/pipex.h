@@ -47,8 +47,6 @@ int redirect_io(int oldfd, int newfd);
 char **get_path(char **envp);
 void free_path(char **m);
 
-int exec_cmd(int in_fd, int out_fd, t_cmd cmd);
-
 
 /* pipe.c */
 int open_pipe(t_fd *p);
@@ -68,5 +66,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 //t_fd *set_fd(char *infile, char *outfile, int size);
 t_fds set_fd(char *infile, char *outfile, int size);
 int close_fds(t_fds fds);
+
+int exec_cmd(t_fds fds, t_cmd cmd, int i);
 
 #endif

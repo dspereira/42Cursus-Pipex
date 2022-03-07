@@ -22,14 +22,6 @@ t_fds set_fd(char *infile, char *outfile, int size)
     }
     fds.size = size;
     fds.fd = fd;
-    printf("size: %i\n",fds.size);
-    i = 0;
-    while (i < size)
-    {
-        printf("\n%i: %i\n", i, fds.fd[i].r);
-		printf("%i: %i\n", i, fds.fd[i].w);
-        i++;
-    }
     return (fds);
 }
 
