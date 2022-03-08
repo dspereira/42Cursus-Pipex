@@ -1,18 +1,5 @@
 #include "pipex.h"
 
-char *get_cmd_path1(const char *cmd)
-{
-	char *path;
-	int size;
-
-	size = ft_strlen(CMDS_PATH);
-	size += ft_strlen(cmd);
-	path = ft_calloc(size + 1, sizeof(char));
-	ft_strcat(path, CMDS_PATH);
-	ft_strcat(path, cmd);
-	return (path);
-}
-
 char *get_cmd_path(const char *cmd, const char **paths)
 {
 	char *path;

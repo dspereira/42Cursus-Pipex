@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-// gcc pipex.c get_cmd.c pipe.c get_path.c exec_cmd.c set_fd.c 
+// gcc pipex.c get_cmd.c pipe.c get_path.c exec_cmd.c set_fd.c utils.c utils2.c
 
 int main (int argc, char **argv, char **envp)
 {
