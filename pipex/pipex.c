@@ -14,7 +14,6 @@ int main (int argc, char **argv, char **envp)
     paths = get_path(envp);
     cmds = get_cmds(argc - 3, (const char**)(argv + 2), (const char **)paths);
     fds = set_fd(argv[1], argv[argc - 1], size);
-    
     i = 0;
     while (i < argc - 3)
     {

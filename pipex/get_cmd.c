@@ -25,9 +25,13 @@ char *get_cmd_path(const char *cmd, const char **paths)
 		} 	
 		i++;
 	}
+	cmd_not_found_err(path, cmd);
 	return (path);
 }
 
+/*
+	size: num cmd
+*/
 t_cmd *get_cmds(int size, const char **cmds, const char **paths)
 {
 	t_cmd *cmd;
