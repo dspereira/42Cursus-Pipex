@@ -12,7 +12,7 @@ int redirect_io(int oldfd, int newfd)
     return(err);
 }
 
-int exec_cmd(t_fds fds, t_cmd cmd, int i)
+int exec_cmd1(t_fds fds, t_cmd cmd, int i)
 {
 	int pid; 
 
@@ -23,7 +23,8 @@ int exec_cmd(t_fds fds, t_cmd cmd, int i)
 			return (-1);		
 		if (redirect_io(fds.fd[i+1].w, STDOUT_FILENO) == -1)
 			return (-1);
-		close_fds(fds);			
+		close_fds(fds);
+
 		if (execve(cmd.path, cmd.cmd, NULL) == -1)
 		{
 			write(STDOUT_FILENO, "Deu muito errado\n", 17);
@@ -33,3 +34,18 @@ int exec_cmd(t_fds fds, t_cmd cmd, int i)
 	return (0);
 }
 
+
+void exec_cmd(t_fds fds, t_cmd cmd, int i)
+{
+	int pid;
+
+	pid = fork();
+	if (!pid)
+	{
+		sys_error(dup2(fds.fd[i].r, STDIN_FILENO));
+		sys_error(dup2(fds.fd[i+1].w, STDOUT_FILENO));
+		close_fds(fds);
+		sys_error(execve(cmd.path, cmd.cmd, NULL));
+		exit(1);
+	}
+}
