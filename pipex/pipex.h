@@ -20,6 +20,12 @@ typedef struct s_cmd
     char **cmd;
 }   t_cmd;
 
+typedef struct s_cmds
+{
+    int size;
+    t_cmd *cmd;
+}   t_cmds;
+
 typedef struct s_fd
 {
     int w;
@@ -34,14 +40,14 @@ typedef struct s_fds
 
 typedef struct s_alloc_mem
 {
-    t_cmd *cmds;
+    t_cmds *cmds;
     char **paths;
 }   t_alloc_mem;
 
 int set_std_io(char *infile, char *outfile);
 
 //t_cmd *get_cmds(int size, const char **cmds);
-t_cmd *get_cmds(int size, const char **cmds, const char **paths);
+t_cmds *get_cmds(int size, const char **cmds, const char **paths);
 void free_cmds(int size, t_cmd *cmds);
 // Função de teste retirar no final
 void print_cmd(int size, t_cmd *cmds);

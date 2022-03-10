@@ -32,22 +32,23 @@ char *get_cmd_path(const char *cmd, const char **paths)
 /*
 	size: num cmd
 */
-t_cmd *get_cmds(int size, const char **cmds, const char **paths)
+t_cmds *get_cmds(int size, const char **m_cmd, const char **paths)
 {
-	t_cmd *cmd;
+	t_cmds *cmds;
 	int i;
 
-	cmd = malloc(size * sizeof(t_cmd));
-	if (!cmd)
-		return (0);
+	
+	cmds = malloc(sizeof(t_cmds));
+	cmds->cmd = malloc(size * sizeof(t_cmd));
+	cmds->size = size;
 	i = 0;
 	while (i < size)
 	{
-		cmd[i].cmd = ft_split(cmds[i], ' ');
-		cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
+		cmds->cmd[i].cmd = ft_split(m_cmd[i], ' ');
+		cmds->cmd[i].path = get_cmd_path(cmds->cmd[i].cmd[0], paths);
 		i++;
 	}
-	return (cmd);
+	return (cmds);
 }
 
 void	free_cmd(char **cmd)
