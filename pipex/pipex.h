@@ -38,11 +38,16 @@ typedef struct s_fds
     t_fd *fd;
 }   t_fds;
 
+typedef struct s_paths
+{
+    char **paths;
+} t_paths;
+
 typedef struct s_alloc_mem
 {
     t_cmds  *cmds;
     t_fds   *fds;
-    char    **paths;
+    t_paths *paths;
 }   t_alloc_mem;
 
 int set_std_io(char *infile, char *outfile);
@@ -57,8 +62,10 @@ void print_cmd(int size, t_cmd *cmds);
 int redirect_infile(const char *infile);
 int redirect_io(int oldfd, int newfd);
 
-char **get_path(char **envp);
-void free_path(char **m);
+//char **get_path(char **envp);
+t_paths *get_path(char **envp);
+//void free_path(char **m);
+void free_path(t_paths *paths);
 
 
 /* pipe.c */
@@ -90,10 +97,12 @@ void cmd_not_found_err(const char *cmd_path, const char *cmd);
 /* alloc_mem.c */
 void free_alloc_mem(void);
 
-void save_alloc_paths(char **paths);
+//void save_alloc_paths(char **paths);
+void save_alloc_paths(t_paths *paths);
 void save_alloc_cmds(t_cmds *cmds);
 void save_alloc_fds(t_fds *fds);
 //void save_alloc_mem(t_cmds *cmds, char **paths);
-void save_alloc_mem(t_cmds *cmds, t_fds *fds, char **paths);
+//void save_alloc_mem(t_cmds *cmds, t_fds *fds, char **paths);
+void save_alloc_mem(t_cmds *cmds, t_fds *fds, t_paths *paths);
 
 #endif

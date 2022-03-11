@@ -1,13 +1,15 @@
 #include "pipex.h"
 
-t_fds set_fd(char *infile, char *outfile, int size)
+t_fds *set_fd(char *infile, char *outfile, int size)
 {
-    t_fds fds;
+    t_fds *fds;
     t_fd *fd;
     int pipe_fd[2];
     int i;
 
-    fd = malloc(size * sizeof(t_fd));
+    fds = malloc(sizeof(t_fds));
+    fds->fd = malloc(size * sizeof(t_fd));
+    fd = fds->fd;
     fd[0].r = sys_error(open(infile, O_RDONLY));
     fd[0].w = -1;
     fd[size - 1].w = sys_error(open(outfile, O_TRUNC | O_WRONLY));
@@ -21,26 +23,33 @@ t_fds set_fd(char *infile, char *outfile, int size)
 		fd[i].w = pipe_fd[1];
         i++;
     }
-    fds.size = size;
-    fds.fd = fd;
+    fds->size = size;
     return (fds);
 }
 
-int close_fds(t_fds fds)
+void close_fds(t_fds *fds)
 {
     t_fd *fd;
     int i;
 
-    fd = fds.fd;
+    if (!fds)
+        return ;
+    fd = fds->fd;
     i = 0;
-    while (i < fds.size)
+    while (i < fds->size)
     {
         if (fd[i].r >= 0)
+        {
             sys_error(close(fd[i].r));
+            fd[i].r = -1;
+        }
         if (fd[i].w >= 0)
+        {
             sys_error(close(fd[i].w));
+            fd[i].w = -1;
+        }
         i++;
     }
     free(fd);
-    return (0);
+    free(fds);
 }

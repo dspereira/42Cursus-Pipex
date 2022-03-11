@@ -1,32 +1,34 @@
 #include "pipex.h"
 
-char **get_path(char **envp)
+t_paths *get_path(char **envp)
 {
     char *path_str;
     char *word;
-    char **paths;
+    t_paths *p;
     int word_size;
     int i;
 
     word = "PATH=";
     word_size = ft_strlen(word);
-    paths = 0;
+    p = malloc(sizeof(t_paths));
     i = 0;
     while (envp[i])
     {
         path_str = ft_strnstr(envp[i], word, word_size);
         if (path_str)
-            paths = ft_split((path_str + word_size), ':');
+            p->paths = ft_split((path_str + word_size), ':');
         i++;
     }
-    return (paths);
+    return (p);
 }
 
-void free_path(char **m)
+void free_path(t_paths *paths)
 {   
     int i;
+    char **m;
 
-    if (m)
+    m = paths->paths;
+    if (paths)
     {
         i = 0;
         while (m[i])
@@ -35,5 +37,6 @@ void free_path(char **m)
             i++;
         }
         free(m);
+        free(paths);
     }
 }
