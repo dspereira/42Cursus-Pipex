@@ -25,7 +25,6 @@ char *get_cmd_path(const char *cmd, const char **paths)
 		} 	
 		i++;
 	}
-	cmd_not_found_err(path, cmd);
 	return (path);
 }
 
@@ -46,6 +45,8 @@ t_cmds *get_cmds(int size, const char **m_cmd, const char **paths)
 	{
 		cmds->cmd[i].cmd = ft_split(m_cmd[i], ' ');
 		cmds->cmd[i].path = get_cmd_path(cmds->cmd[i].cmd[0], paths);
+		save_alloc_cmds(cmds);
+		cmd_not_found_err(cmds->cmd[i].path, cmds->cmd[i].cmd[0]);
 		i++;
 	}
 	return (cmds);
@@ -69,12 +70,18 @@ void free_cmds(t_cmds *cmds)
 	t_cmd *cmd;
 	int	i;
 
+	if (!cmds)
+		return ;
 	cmd = cmds->cmd;
 	i = 0;
 	while (i < cmds->size)
 	{
-		free_cmd(cmd[i].cmd);
-		free(cmd[i].path);
+		if (cmd[i].cmd)
+			free_cmd(cmd[i].cmd);
+		if (cmd[i].path)
+			free(cmd[i].path);
+		if (!cmd[i].cmd || !cmd[i].path)
+			break;
 		i++;
 	}
 	free(cmd);

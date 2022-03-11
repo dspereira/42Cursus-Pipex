@@ -8,7 +8,6 @@ int main (int argc, char **argv, char **envp)
 	t_fds *fds = 0;
 	t_cmds *cmds = 0;
 	t_paths *paths = 0;
-	//char **paths = 0;
 	int i;
 	
 	size = argc - 2;
@@ -16,11 +15,6 @@ int main (int argc, char **argv, char **envp)
 	cmds = get_cmds(argc - 3, (const char**)(argv + 2), (const char **)paths->paths);
 	fds = set_fd(argv[1], argv[argc - 1], size);
 	
-	save_alloc_cmds(cmds);
-	save_alloc_paths(paths);
-	save_alloc_fds(fds);
-	save_alloc_mem(cmds, fds, paths);
-
 	i = 0;
 	while (i < argc - 3)
 	{
@@ -38,6 +32,7 @@ int main (int argc, char **argv, char **envp)
 		if (status)
 		{
 			printf("porque!\n");
+			free_alloc_mem();
 			exit(1);
 		}
 		i++;

@@ -24,6 +24,7 @@ t_fds *set_fd(char *infile, char *outfile, int size)
         i++;
     }
     fds->size = size;
+    save_alloc_fds(fds);
     return (fds);
 }
 

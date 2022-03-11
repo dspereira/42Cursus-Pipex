@@ -10,7 +10,12 @@ t_alloc_mem	*alloc_mem(void *elem, int type)
 	static t_alloc_mem	*mem = 0;
 
 	if (!mem)
+	{
 		mem = malloc(sizeof(t_alloc_mem));
+		mem->cmds = 0;
+		mem->fds = 0;
+		mem->paths = 0;
+	}
 	if (type == TYPE_CMDS)
 		mem->cmds = (t_cmds *) elem;
 	else if (type == TYPE_FDS)
@@ -49,15 +54,16 @@ t_alloc_mem	*get_alloc_mem(void)
 
 void	free_alloc_mem(void)
 {
+	
 	t_alloc_mem	*mem;
-
+	
 	mem = get_alloc_mem();
 	if (mem && mem->paths)
 		free_path(mem->paths);
-	if (mem && mem->cmds)	
+	if (mem && mem->cmds)
 		free_cmds(mem->cmds);
 	if (mem && mem->fds)
-		close_fds(mem->fds);	
+		close_fds(mem->fds);
 	if (mem)
 		free(mem);
 }
