@@ -40,15 +40,16 @@ typedef struct s_fds
 
 typedef struct s_alloc_mem
 {
-    t_cmds *cmds;
-    char **paths;
+    t_cmds  *cmds;
+    t_fds   *fds;
+    char    **paths;
 }   t_alloc_mem;
 
 int set_std_io(char *infile, char *outfile);
 
 //t_cmd *get_cmds(int size, const char **cmds);
 t_cmds *get_cmds(int size, const char **cmds, const char **paths);
-void free_cmds(int size, t_cmd *cmds);
+void free_cmds(t_cmds *cmds);
 // Função de teste retirar no final
 void print_cmd(int size, t_cmd *cmds);
 
@@ -63,7 +64,8 @@ void free_path(char **m);
 /* pipe.c */
 int open_pipe(t_fd *p);
 // Não á necessidade desta função rever
-int close_fd(int *fd);
+//int close_fd(int *fd);
+void close_fds(t_fds *fds);
 
 /* utils.h */
 size_t	ft_strlen(const char *s);
@@ -76,16 +78,22 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 
 //t_fd *set_fd(char *infile, char *outfile, int size);
-t_fds set_fd(char *infile, char *outfile, int size);
-int close_fds(t_fds fds);
+t_fds *set_fd(char *infile, char *outfile, int size);
+//int close_fds(t_fds *fds);
 
-void exec_cmd(t_fds fds, t_cmd cmd, int i);
+//void exec_cmd(t_fds fds, t_cmd cmd, int i);
+void exec_cmd(t_fds *fds, t_cmd cmd, int i);
 
 int sys_error(int err);
 void cmd_not_found_err(const char *cmd_path, const char *cmd);
 
 /* alloc_mem.c */
-void save_alloc_mem(t_cmd *cmds, char **paths);
 void free_alloc_mem(void);
+
+void save_alloc_paths(char **paths);
+void save_alloc_cmds(t_cmds *cmds);
+void save_alloc_fds(t_fds *fds);
+//void save_alloc_mem(t_cmds *cmds, char **paths);
+void save_alloc_mem(t_cmds *cmds, t_fds *fds, char **paths);
 
 #endif

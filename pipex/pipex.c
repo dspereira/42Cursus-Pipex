@@ -4,39 +4,41 @@
 
 int main (int argc, char **argv, char **envp)
 {
-	 int size;
-	 t_fds fds;
-	 t_cmds *cmds;
-	 char **paths;
-	 int i;
-
-	 size = argc - 2;
-	 paths = get_path(envp);
-	 cmds = get_cmds(argc - 3, (const char**)(argv + 2), (const char **)paths);
-	 //save_alloc_mem(cmds, paths);
-	 fds = set_fd(argv[1], argv[argc - 1], size);
-	 //save_alloc_mem(cmds, paths);
+	int size;
+	t_fds *fds = 0;
+	t_cmds *cmds = 0;
+	char **paths = 0;
+	int i;
 	
-	 
-	 i = 0;
-	 while (i < argc - 3)
-	 {
-		 exec_cmd(fds, cmds->cmd[i], i);
-		 i++;
-	 }
-	 close_fds(fds);
-	 i = 0;
-	 int status; 
-	 while (i < argc - 3)
-	 {
-		 wait(&status);
-		 if (status)
-		 {
-			 printf("porque!\n");
-			 exit(1);
-		 }
-		 i++;
-	 }
-	 //free_alloc_mem();
+	size = argc - 2;
+	paths = get_path(envp);
+	cmds = get_cmds(argc - 3, (const char**)(argv + 2), (const char **)paths);
+	fds = set_fd(argv[1], argv[argc - 1], size);
+	
+	save_alloc_cmds(cmds);
+	save_alloc_paths(paths);
+	save_alloc_fds(fds);
+	//save_alloc_mem(cmds, paths); 
+	
+	i = 0;
+	while (i < argc - 3)
+	{
+		exec_cmd(fds, cmds->cmd[i], i);
+		i++;
+	}
+	close_fds(fds);
+	i = 0;
+	int status; 
+	while (i < argc - 3)
+	{
+		wait(&status);
+		if (status)
+		{
+			printf("porque!\n");
+			exit(1);
+		}
+		i++;
+	}
+	free_alloc_mem();
 }
 

@@ -64,17 +64,20 @@ void	free_cmd(char **cmd)
 	free(cmd);
 }
 
-void free_cmds(int size, t_cmd *cmds)
+void free_cmds(t_cmds *cmds)
 {
+	t_cmd *cmd;
 	int	i;
 
+	cmd = cmds->cmd;
 	i = 0;
-	while (i < size)
+	while (i < cmds->size)
 	{
-		free_cmd(cmds[i].cmd);
-		free(cmds[i].path);
+		free_cmd(cmd[i].cmd);
+		free(cmd[i].path);
 		i++;
 	}
+	free(cmd);
 	free(cmds);
 }
 

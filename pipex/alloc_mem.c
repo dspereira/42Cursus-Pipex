@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-t_alloc_mem *alloc_mem(t_cmds *cmds, char **paths, int save)
+t_alloc_mem *alloc_mem(t_cmds *cmds, t_fds *fds, char **paths, int save)
 {
 	static t_alloc_mem *mem = 0;
 
@@ -10,6 +10,8 @@ t_alloc_mem *alloc_mem(t_cmds *cmds, char **paths, int save)
 			mem = malloc(sizeof(t_alloc_mem));
 		if (cmds)
 			mem->cmds = cmds;
+		if (fds)
+			mem->fds = fds;
 		if (paths)
 			mem->paths = paths;
 	}
@@ -18,22 +20,27 @@ t_alloc_mem *alloc_mem(t_cmds *cmds, char **paths, int save)
 
 void save_alloc_paths(char **paths)
 {
-	alloc_mem(0, paths, 1);
+	alloc_mem(0, 0, paths, 1);
 }
 
 void save_alloc_cmds(t_cmds *cmds)
 {
-	alloc_mem(cmds, 0, 1);
+	alloc_mem(cmds, 0, 0, 1);
 }
 
-void save_alloc_mem(t_cmd *cmds, char **paths)
+void save_alloc_fds(t_fds *fds)
 {
-	alloc_mem(cmds, paths, 1);
+	alloc_mem(0, fds, 0, 1);
+}
+
+void save_alloc_mem(t_cmds *cmds, t_fds *fds, char **paths)
+{
+	alloc_mem(cmds, fds, paths, 1);
 }
 
 t_alloc_mem *get_alloc_mem(void)
 {
-	return (alloc_mem(0, 0, 0));
+	return (alloc_mem(0, 0, 0, 0));
 }
 
 void free_alloc_mem(void)
@@ -44,7 +51,9 @@ void free_alloc_mem(void)
 	if (mem && mem->paths)
 		free_path(mem->paths);
 	if (mem && mem->cmds)	
-		free_cmds(2, mem->cmds);
+		free_cmds(mem->cmds);
+	if (mem && mem->fds);
+		//close_fds(mem->fds);	
 	if (mem)
 		free(mem);
 }
