@@ -1,9 +1,9 @@
 #include "pipex.h"
 
-#define NO_TYPE 0
-#define TYPE_CMDS 1
-#define TYPE_FDS 2
-#define TYPE_PATHS 3
+#define NO_TYPE 	0
+#define TYPE_CMDS 	1
+#define TYPE_FDS 	2
+#define TYPE_PATHS 	3
 
 t_alloc_mem	*alloc_mem(void *elem, int type)
 {
@@ -54,9 +54,8 @@ t_alloc_mem	*get_alloc_mem(void)
 
 void	free_alloc_mem(void)
 {
-	
 	t_alloc_mem	*mem;
-	
+
 	mem = get_alloc_mem();
 	if (mem && mem->paths)
 		free_path(mem->paths);

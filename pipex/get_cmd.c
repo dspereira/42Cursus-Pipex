@@ -1,5 +1,32 @@
 #include "pipex.h"
 
+
+t_cmds *init_cmds(void)
+{
+	t_cmds *cmds;
+
+	cmds = oom_guard(malloc(sizeof(t_cmds)));
+	cmds->size = 0;
+	cmds->cmd = 0;
+	return (cmds);
+}
+
+t_cmd *init_cmd(int num_cmds)
+{
+	t_cmd *cmd;
+	int i;
+
+	cmd = oom_guard(malloc(num_cmds * sizeof(t_cmd)));
+	i = 0;
+	while (i < num_cmds)
+	{
+		cmd[i].path = 0;
+		cmd[i].cmd = 0;
+		i++;
+	}
+	return (cmd);
+}
+
 char *get_cmd_path(const char *cmd, const char **paths)
 {
 	char *path;
@@ -10,9 +37,7 @@ char *get_cmd_path(const char *cmd, const char **paths)
 	while (paths[i])
 	{
 		size = ft_strlen(paths[i]) + ft_strlen(cmd) + 1;
-		path = ft_calloc(size + 1, sizeof(char));
-		if (!path)
-			return (0);
+		path = oom_guard(ft_calloc(size + 1, sizeof(char)));
 		ft_strcat(path, paths[i]);
 		ft_strcat(path, "/");
 		ft_strcat(path, cmd);
@@ -21,32 +46,32 @@ char *get_cmd_path(const char *cmd, const char **paths)
 		else
 		{
 			free(path);
-			path = NULL;
+			path = 0;
 		} 	
 		i++;
 	}
 	return (path);
 }
 
-/*
-	size: num cmd
-*/
 t_cmds *get_cmds(int size, const char **m_cmd, const char **paths)
 {
-	t_cmds *cmds;
+	t_cmds	*cmds;
+	t_cmd	*cmd;
 	int i;
 
-	
-	cmds = malloc(sizeof(t_cmds));
-	cmds->cmd = malloc(size * sizeof(t_cmd));
+	cmds = init_cmds();
+	save_alloc_cmds(cmds);
+	cmds->cmd = init_cmd(size);
 	cmds->size = size;
+	save_alloc_cmds(cmds);
+	cmd = cmds->cmd;
 	i = 0;
 	while (i < size)
 	{
-		cmds->cmd[i].cmd = ft_split(m_cmd[i], ' ');
-		cmds->cmd[i].path = get_cmd_path(cmds->cmd[i].cmd[0], paths);
+		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
+		cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
 		save_alloc_cmds(cmds);
-		cmd_not_found_err(cmds->cmd[i].path, cmds->cmd[i].cmd[0]);
+		cmd_not_found_err(cmd[i].path, cmd[i].cmd[0]);
 		i++;
 	}
 	return (cmds);
@@ -73,35 +98,18 @@ void free_cmds(t_cmds *cmds)
 	if (!cmds)
 		return ;
 	cmd = cmds->cmd;
-	i = 0;
-	while (i < cmds->size)
+	if (cmd)
 	{
-		if (cmd[i].cmd)
-			free_cmd(cmd[i].cmd);
-		if (cmd[i].path)
-			free(cmd[i].path);
-		if (!cmd[i].cmd || !cmd[i].path)
-			break;
-		i++;
-	}
-	free(cmd);
-	free(cmds);
-}
-
-// Função de teste retirar no final
-void print_cmd(int size, t_cmd *cmds)
-{
-	int j = 0;
-	int k;
-	while (j < size)
-	{
-		printf("\ncmd: ");
-		k = 0;
-		while (cmds[j].cmd[k])
+		i = 0;
+		while (i < cmds->size)
 		{
-			printf("%s \n", cmds[j].cmd[k]);
-			k++;
+				if (cmd[i].cmd)
+					free_cmd(cmd[i].cmd);
+				if (cmd[i].path)
+					free(cmd[i].path);
+			i++;
 		}
-		j++;
+		free(cmd);
 	}
+	free(cmds);
 }

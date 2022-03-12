@@ -93,6 +93,7 @@ void exec_cmd(t_fds *fds, t_cmd cmd, int i);
 
 int sys_error(int err);
 void cmd_not_found_err(const char *cmd_path, const char *cmd);
+void	*oom_guard(void *p);
 
 /* alloc_mem.c */
 void free_alloc_mem(void);
