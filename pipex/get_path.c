@@ -16,7 +16,10 @@ t_paths *get_path(char **envp)
     {
         path_str = ft_strnstr(envp[i], word, word_size);
         if (path_str)
+        {
             p->paths = ft_split(&path_str[word_size], ':');
+            break;
+        }
         i++;
     }
     save_alloc_paths(p);

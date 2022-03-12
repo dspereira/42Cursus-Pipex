@@ -1,6 +1,5 @@
 #include "pipex.h"
 
-
 t_cmds *init_cmds(void)
 {
 	t_cmds *cmds;

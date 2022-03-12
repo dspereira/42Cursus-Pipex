@@ -6,7 +6,7 @@ int main (int argc, char **argv, char **envp)
 {
 	int size;
 	t_fds *fds = 0;
-	t_cmds *cmds = 0;
+	t_cmds *cmds;
 	t_paths *paths = 0;
 	int i;
 	
