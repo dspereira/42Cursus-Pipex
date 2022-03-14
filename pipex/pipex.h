@@ -89,7 +89,7 @@ t_fds *set_fd(char *infile, char *outfile, int size);
 //int close_fds(t_fds *fds);
 
 //void exec_cmd(t_fds fds, t_cmd cmd, int i);
-void exec_cmd(t_fds *fds, t_cmd cmd, int i);
+//void exec_cmd(t_fds *fds, t_cmd cmd, int i);
 
 int sys_error(int err);
 void cmd_not_found_err(const char *cmd_path, const char *cmd);
