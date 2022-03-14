@@ -5,7 +5,6 @@ t_fds *init_fds(void)
 	t_fds *fds;
 
 	fds = oom_guard(malloc(sizeof(t_fds)));
-	//fds = oom_guard(0);
 	fds->fd = 0;
 	fds->size = 0;
 	return (fds);
@@ -17,7 +16,6 @@ t_fd *init_fd(int num_fd)
 	int i;
 
 	fd = oom_guard(malloc(num_fd * sizeof(t_fd)));
-	//fd = oom_guard(0);
 	i = 0;
 	while (i < num_fd)
 	{
@@ -39,10 +37,14 @@ t_fds *set_fd(char *infile, char *outfile, int size)
 	save_alloc_fds(fds);
 	fds->fd = init_fd(size);
 	fds->size = size;
-	save_alloc_fds(fds);
 	fd = fds->fd;
 	fd[0].r = sys_error(open(infile, O_RDONLY));
-	fd[size - 1].w = sys_error(open(outfile, O_TRUNC | O_WRONLY));
+	if (access(outfile, F_OK) == 0)
+	{
+		sys_error(access(outfile, W_OK));
+		sys_error(unlink(outfile));
+	}
+	fd[size - 1].w = sys_error(open(outfile, O_CREAT | O_TRUNC | O_WRONLY, 00644));
 	i = 1;
 	while (i < size - 1)
 	{
@@ -51,7 +53,6 @@ t_fds *set_fd(char *infile, char *outfile, int size)
 		fd[i].w = pipe_fd[1];
 		i++;
 	}
-	save_alloc_fds(fds);
 	return (fds);
 }
 

@@ -62,14 +62,12 @@ t_cmds *get_cmds(int size, const char **m_cmd, const char **paths)
 	save_alloc_cmds(cmds);
 	cmds->cmd = init_cmd(size);
 	cmds->size = size;
-	save_alloc_cmds(cmds);
 	cmd = cmds->cmd;
 	i = 0;
 	while (i < size)
 	{
 		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
 		cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
-		save_alloc_cmds(cmds);
 		cmd_not_found_err(cmd[i].path, cmd[i].cmd[0]);
 		i++;
 	}
