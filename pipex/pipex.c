@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-// gcc pipex.c get_cmd.c get_path.c set_fd.c utils.c utils2.c alloc_mem.c error_handling.c
+//gcc pipex.c get_cmds.c get_path.c get_fds.c utils.c utils2.c alloc_mem.c error_handling.c free_cmds.c free_path.c close_fds.c
 
 void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd);
 void	wait_cmds_end(int num_cmds);
@@ -17,7 +17,7 @@ int	main(int argc, char **argv, char **envp)
 	num_cmds = argc - 3;
 	size_arr_fd = num_cmds + 1;
 	paths = get_path(envp);
-	fds = set_fd(argv[1], argv[argc - 1], size_arr_fd);
+	fds = get_fds(argv[1], argv[argc - 1], size_arr_fd);
 	cmds = get_cmds(num_cmds, (argv + 2), paths->paths);
 	exec_cmds(fds, cmds, num_cmds);
 	close_fds(fds);

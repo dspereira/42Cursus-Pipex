@@ -53,7 +53,7 @@ typedef struct s_alloc_mem
 int set_std_io(char *infile, char *outfile);
 
 //t_cmd *get_cmds(int size, const char **cmds);
-t_cmds *get_cmds(int size, const char **cmds, const char **paths);
+t_cmds *get_cmds(int size, char **cmds, char **paths);
 void free_cmds(t_cmds *cmds);
 // Função de teste retirar no final
 void print_cmd(int size, t_cmd *cmds);
@@ -85,7 +85,8 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 
 //t_fd *set_fd(char *infile, char *outfile, int size);
-t_fds *set_fd(char *infile, char *outfile, int size);
+//t_fds *set_fd(char *infile, char *outfile, int size);
+t_fds	*get_fds(char *infile, char *outfile, int size);
 //int close_fds(t_fds *fds);
 
 //void exec_cmd(t_fds fds, t_cmd cmd, int i);
