@@ -13,13 +13,9 @@ int	sys_error(int err)
 
 void	cmd_not_found_err(const char *cmd_path, const char *cmd)
 {
+	// alterar pela ft_printf 
 	if (!cmd_path)
-	{
-		// alterar pela ft_printf 
 		printf("pipex: command not found: %s\n", cmd);
-		free_alloc_mem();
-		exit(EXIT_FAILURE);
-	}
 }
 
 void	*oom_guard(void *p)
