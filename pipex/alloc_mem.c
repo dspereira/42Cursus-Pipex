@@ -40,23 +40,11 @@ void	save_alloc_fds(t_fds *fds)
 	alloc_mem(fds, TYPE_FDS);
 }
 
-void	save_alloc_mem(t_cmds *cmds, t_fds *fds, t_paths *paths)
-{
-	save_alloc_cmds(cmds);
-	save_alloc_paths(paths);
-	save_alloc_fds(fds);
-}
-
-t_alloc_mem	*get_alloc_mem(void)
-{
-	return (alloc_mem(0, NO_TYPE));
-}
-
 void	free_alloc_mem(void)
 {
 	t_alloc_mem	*mem;
 
-	mem = get_alloc_mem();
+	mem = alloc_mem(0, NO_TYPE);
 	if (mem && mem->paths)
 		free_path(mem->paths);
 	if (mem && mem->cmds)

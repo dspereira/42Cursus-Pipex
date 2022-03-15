@@ -38,7 +38,7 @@ t_fds *set_fd(char *infile, char *outfile, int size)
 	fds->fd = init_fd(size);
 	fds->size = size;
 	fd = fds->fd;
-	fd[0].r = sys_error(open(infile, O_RDONLY));
+	fd[0].r = file_not_found_err(open(infile, O_RDONLY), infile);
 	if (access(outfile, F_OK) == 0)
 	{
 		sys_error(access(outfile, W_OK));

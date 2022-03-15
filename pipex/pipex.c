@@ -1,8 +1,6 @@
 #include "pipex.h"
 
-// gcc pipex.c get_cmd.c get_path.c set_fd.c utils.c utils2.c alloc_mem.c error_handling.c 
-//void	exec_cmd(t_fds *fds, t_cmd cmd, int i);
-//void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds);
+// gcc pipex.c get_cmd.c get_path.c set_fd.c utils.c utils2.c alloc_mem.c error_handling.c
 
 void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd);
 void	wait_cmds_end(int num_cmds);
@@ -26,18 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	save_alloc_fds(0); // para tirar daqui
 	wait_cmds_end(num_cmds);
 	free_alloc_mem();
-}
-
-void	wait_cmds_end(int num_cmds)
-{	
-	int	i;
-
-	i = 0;
-	while (i < num_cmds)
-	{
-		wait(NULL);
-		i++;
-	}
 }
 
 void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds)
@@ -72,5 +58,17 @@ void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd)
 			exit(EXIT_FAILURE);
 		}
 		exit(0);
+	}
+}
+
+void	wait_cmds_end(int num_cmds)
+{	
+	int	i;
+
+	i = 0;
+	while (i < num_cmds)
+	{
+		wait(NULL);
+		i++;
 	}
 }

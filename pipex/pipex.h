@@ -94,6 +94,7 @@ t_fds *set_fd(char *infile, char *outfile, int size);
 int sys_error(int err);
 void cmd_not_found_err(const char *cmd_path, const char *cmd);
 void	*oom_guard(void *p);
+int	file_not_found_err(int err, char *file);
 
 /* alloc_mem.c */
 void free_alloc_mem(void);

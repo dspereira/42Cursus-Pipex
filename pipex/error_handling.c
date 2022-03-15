@@ -11,9 +11,19 @@ int	sys_error(int err)
 	return (err);
 }
 
+int	file_not_found_err(int err, char *file)
+{
+	if (err == -1)
+	{
+		printf("pipex: %s: %s\n", file, strerror(errno));
+		free_alloc_mem();
+		exit(EXIT_FAILURE);
+	}
+	return (err);
+}
+
 void	cmd_not_found_err(const char *cmd_path, const char *cmd)
 {
-	// alterar pela ft_printf 
 	if (!cmd_path)
 		printf("pipex: command not found: %s\n", cmd);
 }
