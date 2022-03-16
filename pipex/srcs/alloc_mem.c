@@ -46,7 +46,7 @@ void	free_alloc_mem(void)
 
 	mem = alloc_mem(0, NO_TYPE);
 	if (mem && mem->paths)
-		free_path(mem->paths);
+		free_paths(mem->paths);
 	if (mem && mem->cmds)
 		free_cmds(mem->cmds);
 	if (mem && mem->fds)

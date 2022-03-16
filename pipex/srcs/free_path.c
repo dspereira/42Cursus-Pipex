@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-void	free_path(t_paths *paths)
+void	free_paths(t_paths *paths)
 {
 	int		i;
 	char	**m;

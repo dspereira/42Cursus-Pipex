@@ -1,6 +1,6 @@
 #include "pipex.h"
 
-t_paths	*get_path(char **envp)
+t_paths	*get_paths(char **envp)
 {
 	t_paths	*p;
 	char	*path_str;

@@ -15,7 +15,7 @@ int	file_not_found_err(int err, char *file)
 {
 	if (err == -1)
 	{
-		ft_printf("%s: %s: %s\n",PROGRAM_NAME, file, strerror(errno));
+		ft_printf("%s: %s: %s\n", PROGRAM_NAME, file, strerror(errno));
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
@@ -25,7 +25,7 @@ int	file_not_found_err(int err, char *file)
 void	cmd_not_found_err(const char *cmd_path, const char *cmd)
 {
 	if (!cmd_path)
-		ft_printf("%s: command not found: %s\n",PROGRAM_NAME, cmd);
+		ft_printf("%s: command not found: %s\n", PROGRAM_NAME, cmd);
 }
 
 void	*oom_guard(void *p)

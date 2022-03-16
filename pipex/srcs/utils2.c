@@ -22,10 +22,10 @@ void	*ft_calloc(size_t count, size_t size)
 	return (ptr);
 }
 
-char *ft_strcat(char *dst, const char *src)
+char	*ft_strcat(char *dst, const char *src)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = ft_strlen(dst);
 	j = 0;

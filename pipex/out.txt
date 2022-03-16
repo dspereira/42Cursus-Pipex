@@ -1,4 +1,0 @@
-Works!
-This is the file
-where command receives data to read
-chears pipex :)

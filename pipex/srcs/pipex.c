@@ -1,45 +1,5 @@
 #include "pipex.h"
 
-void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd);
-void	wait_cmds_end(int num_cmds);
-void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds);
-
-int	main(int argc, char **argv, char **envp)
-{
-	t_fds	*fds;
-	t_cmds	*cmds;
-	t_paths	*paths;
-	int		num_cmds;
-	int		size_arr_fd;
-
-	num_cmds = argc - 3;
-	size_arr_fd = num_cmds + 1;
-	paths = get_path(envp);
-	fds = get_fds(argv[1], argv[argc - 1], size_arr_fd);
-	cmds = get_cmds(num_cmds, (argv + 2), paths->paths);
-	exec_cmds(fds, cmds, num_cmds);
-	close_fds(fds);
-	save_alloc_fds(0); // para tirar daqui
-	wait_cmds_end(num_cmds);
-	free_alloc_mem();
-}
-
-void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds)
-{
-	int		i;
-	t_fd	*fd;
-	t_cmd	*cmd;
-
-	fd = fds->fd;
-	cmd = cmds->cmd;
-	i = 0;
-	while (i < num_cmds)
-	{
-		exec_cmd(fds, cmd[i], fd[i].r, fd[i + 1].w);
-		i++;
-	}	
-}
-
 void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd)
 {
 	int	pid;
@@ -59,6 +19,22 @@ void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd)
 	}
 }
 
+void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds)
+{
+	int		i;
+	t_fd	*fd;
+	t_cmd	*cmd;
+
+	fd = fds->fd;
+	cmd = cmds->cmd;
+	i = 0;
+	while (i < num_cmds)
+	{
+		exec_cmd(fds, cmd[i], fd[i].r, fd[i + 1].w);
+		i++;
+	}	
+}
+
 void	wait_cmds_end(int num_cmds)
 {	
 	int	i;
@@ -69,4 +45,24 @@ void	wait_cmds_end(int num_cmds)
 		wait(NULL);
 		i++;
 	}
+}
+
+int	main(int argc, char **argv, char **envp)
+{
+	t_fds	*fds;
+	t_cmds	*cmds;
+	t_paths	*paths;
+	int		num_cmds;
+	int		size_arr_fd;
+
+	num_cmds = argc - 3;
+	size_arr_fd = num_cmds + 1;
+	paths = get_paths(envp);
+	fds = get_fds(argv[1], argv[argc - 1], size_arr_fd);
+	cmds = get_cmds(num_cmds, (argv + 2), paths->paths);
+	exec_cmds(fds, cmds, num_cmds);
+	close_fds(fds);
+	save_alloc_fds(0); // para tirar daqui
+	wait_cmds_end(num_cmds);
+	free_alloc_mem();
 }
