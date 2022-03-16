@@ -1,22 +1,29 @@
-NAME		= pipex
+NAME			= pipex
 
-SRCS		= $(wildcard srcs/*.c)		  				
-OBJS		= $(SRCS:.c=.o)
+SRCS			= $(wildcard srcs/*.c)		  				
+OBJS			= $(SRCS:.c=.o)
 
-CC			= gcc 
-CFLAGS		=  -Wall -Wextra -Werror -I./includes
-RM			= rm -f
+CC				= gcc 
+CFLAGS			=  -Wall -Wextra -Werror -I./includes
+RM				= rm -f
+
+FT_PRINTF		= ft_printf/libftprintf.a
+MAKE_FTPRINTF	= make -C ft_printf/
+CLEAN_FTPRINTF 	= make clean -C ft_printf/
+FCLEAN_FTPRINTF	= make fclean -C ft_printf/
 
 all: $(NAME)
 
 $(NAME): $(OBJS) 
-	$(CC) $(OBJS) -o $(NAME) 
+	$(MAKE_FTPRINTF)
+	$(CC) $(OBJS) $(FT_PRINTF) -o $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(CHECKER_OBJS)
+	$(CLEAN_FTPRINTF)
+	$(RM) $(OBJS)
 	
-
 fclean: clean
-	$(RM) $(NAME) $(CHECKER_NAME)
+	$(FCLEAN_FTPRINTF)
+	$(RM) $(NAME)
 
 re:	fclean all

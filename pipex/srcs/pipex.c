@@ -1,7 +1,5 @@
 #include "pipex.h"
 
-//gcc pipex.c get_cmds.c get_path.c get_fds.c utils.c utils2.c alloc_mem.c error_handling.c free_cmds.c free_path.c close_fds.c
-
 void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd);
 void	wait_cmds_end(int num_cmds);
 void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds);

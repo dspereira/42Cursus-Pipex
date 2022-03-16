@@ -4,7 +4,7 @@ int	sys_error(int err)
 {
 	if (err == -1)
 	{
-		perror("pipex");
+		perror(PROGRAM_NAME);
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
@@ -15,7 +15,7 @@ int	file_not_found_err(int err, char *file)
 {
 	if (err == -1)
 	{
-		printf("pipex: %s: %s\n", file, strerror(errno));
+		ft_printf("%s: %s: %s\n",PROGRAM_NAME, file, strerror(errno));
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
@@ -25,14 +25,14 @@ int	file_not_found_err(int err, char *file)
 void	cmd_not_found_err(const char *cmd_path, const char *cmd)
 {
 	if (!cmd_path)
-		printf("pipex: command not found: %s\n", cmd);
+		ft_printf("%s: command not found: %s\n",PROGRAM_NAME, cmd);
 }
 
 void	*oom_guard(void *p)
 {
 	if (!p)
 	{
-		printf("pipex: Out of memory!\n");
+		ft_printf("%s: Out of memory!\n", PROGRAM_NAME);
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
