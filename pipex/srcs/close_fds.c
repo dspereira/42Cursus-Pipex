@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	close_fds(t_fds *fds)
 {
@@ -26,4 +26,5 @@ void	close_fds(t_fds *fds)
 	if (fd)
 		free(fd);
 	free(fds);
+	save_alloc_fds(0);
 }

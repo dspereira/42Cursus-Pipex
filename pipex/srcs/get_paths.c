@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 t_paths	*get_paths(char **envp)
 {

@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 #define NO_TYPE 	0
 #define TYPE_CMDS 	1

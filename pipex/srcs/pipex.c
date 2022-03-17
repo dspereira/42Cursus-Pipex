@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "../includes/pipex.h"
 
 void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd)
 {
@@ -55,6 +55,12 @@ int	main(int argc, char **argv, char **envp)
 	int		num_cmds;
 	int		size_arr_fd;
 
+	if (argc != 5)
+	{
+		ft_printf("%s: Wrong number of parametersn\n", PROGRAM_NAME);
+		ft_printf("Usage \"./pipex infile cmd1 cmd2 outfile\"\n");
+		return (0);
+	}
 	num_cmds = argc - 3;
 	size_arr_fd = num_cmds + 1;
 	paths = get_paths(envp);
@@ -62,7 +68,6 @@ int	main(int argc, char **argv, char **envp)
 	cmds = get_cmds(num_cmds, (argv + 2), paths->paths);
 	exec_cmds(fds, cmds, num_cmds);
 	close_fds(fds);
-	save_alloc_fds(0); // para tirar daqui
 	wait_cmds_end(num_cmds);
 	free_alloc_mem();
 }
