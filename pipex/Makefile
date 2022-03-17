@@ -11,12 +11,12 @@ GENE_SRCS	= 	srcs/alloc_mem.c \
 				srcs/utils.c \
 				srcs/utils2.c \
 
-PIPEX			= srcs/pipex.c
-PIPEX_BONUS		= srcs/pipex_bonus.c
+PIPEX_SRC		= srcs/pipex.c
+PIPEX_BONUS_SRC	= srcs/pipex_bonus.c
 
 GENE_OBJS		= $(GENE_SRCS:.c=.o)
-PIPEX_OBJ		= $(PIPEX:.c=.o)
-PIPEX_BONUS_OBJ	= $(PIPEX_BONUS:.c=.o)
+PIPEX_OBJ		= $(PIPEX_SRC:.c=.o)
+PIPEX_BONUS_OBJ	= $(PIPEX_BONUS_SRC:.c=.o)
 
 CC				= gcc 
 CFLAGS			=  -Wall -Wextra -Werror -I.
