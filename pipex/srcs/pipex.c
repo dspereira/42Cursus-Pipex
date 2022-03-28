@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/03/28 12:37:50 by dsilveri          #+#    #+#             */
+/*   Updated: 2022/03/28 12:42:15 by dsilveri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../includes/pipex.h"
 
 void	exec_cmd(t_fds *fds, t_cmd cmd, t_fd fd, char **env)
@@ -21,7 +33,7 @@ void	exec_cmd(t_fds *fds, t_cmd cmd, t_fd fd, char **env)
 
 void	exec_cmds(t_fds *fds, t_cmds *cmds, char **env)
 {
-	int 	n_cmds;
+	int		n_cmds;
 	int		i;
 	t_fd	*fd;
 	t_fd	actual_fd;
