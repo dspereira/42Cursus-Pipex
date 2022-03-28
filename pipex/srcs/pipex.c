@@ -1,46 +1,51 @@
 #include "../includes/pipex.h"
 
-void	exec_cmd(t_fds *fds, t_cmd cmd, int r_fd, int w_fd)
+void	exec_cmd(t_fds *fds, t_cmd cmd, t_fd fd, char **env)
 {
 	int	pid;
 
 	pid = fork();
 	if (!pid)
 	{
-		sys_error(dup2(r_fd, STDIN_FILENO));
-		sys_error(dup2(w_fd, STDOUT_FILENO));
+		sys_error(dup2(fd.r, STDIN_FILENO));
+		sys_error(dup2(fd.w, STDOUT_FILENO));
 		close_fds(fds);
 		if (cmd.cmd[0])
 		{
-			execve(cmd.path, cmd.cmd, NULL);
+			execve(cmd.path, cmd.cmd, env);
 			exit(EXIT_FAILURE);
 		}
 		exit(0);
 	}
 }
 
-void	exec_cmds(t_fds *fds, t_cmds *cmds, int num_cmds)
+void	exec_cmds(t_fds *fds, t_cmds *cmds, char **env)
 {
+	int 	n_cmds;
 	int		i;
 	t_fd	*fd;
+	t_fd	actual_fd;
 	t_cmd	*cmd;
 
 	fd = fds->fd;
 	cmd = cmds->cmd;
+	n_cmds = cmds->size;
 	i = 0;
-	while (i < num_cmds)
+	while (i < n_cmds)
 	{
-		exec_cmd(fds, cmd[i], fd[i].r, fd[i + 1].w);
+		actual_fd.r = fd[i].r;
+		actual_fd.w = fd[i + 1].w;
+		exec_cmd(fds, cmd[i], actual_fd, env);
 		i++;
 	}	
 }
 
-void	wait_cmds_end(int num_cmds)
+void	wait_cmds_end(int n_cmds)
 {	
 	int	i;
 
 	i = 0;
-	while (i < num_cmds)
+	while (i < n_cmds)
 	{
 		wait(NULL);
 		i++;
@@ -66,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	paths = get_paths(envp);
 	fds = get_fds(argv[1], argv[argc - 1], size_arr_fd);
 	cmds = get_cmds(num_cmds, (argv + 2), paths->paths);
-	exec_cmds(fds, cmds, num_cmds);
+	exec_cmds(fds, cmds, envp);
 	close_fds(fds);
 	wait_cmds_end(num_cmds);
 	free_alloc_mem();
