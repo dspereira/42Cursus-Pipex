@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/27 20:41:00 by diogo            ###   ########.fr       */
+/*   Updated: 2022/04/27 21:25:36 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,10 @@ t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
 	while (i < size)
 	{
 		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
-		cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
+		if (paths)
+			cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
+		else
+			cmd[i].path = 0;
 		cmd_not_found_err(cmd[i].path, cmd[i].cmd[0]);
 		i++;
 	}

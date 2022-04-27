@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:38 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:37:39 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/27 21:23:01 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,5 @@ t_paths	*get_paths(char **envp)
 		i++;
 	}
 	save_alloc_paths(p);
-	oom_guard(p->paths);
 	return (p);
 }
