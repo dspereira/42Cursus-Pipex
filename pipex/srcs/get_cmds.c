@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:37:23 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/27 20:41:00 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ char	*get_cmd_path(char *cmd, char **paths)
 		path = oom_guard(ft_calloc(size + 1, sizeof(char)));
 		ft_strcat(path, paths[i]);
 		ft_strcat(path, "/");
-		ft_strcat(path, cmd);
+		if (cmd)
+			ft_strcat(path, cmd);
+		else
+			ft_strcat(path, " ");
 		if (access(path, X_OK) == 0)
 			break ;
 		else
