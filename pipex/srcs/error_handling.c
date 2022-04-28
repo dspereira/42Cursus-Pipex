@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/27 21:19:46 by diogo            ###   ########.fr       */
+/*   Updated: 2022/04/28 14:16:57 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	sys_error(int err)
 	return (err);
 }
 
-int	file_not_found_err(int err, char *file)
+int	file_error(int err, char *file)
 {
 	if (err == -1)
 	{
@@ -37,7 +37,11 @@ int	file_not_found_err(int err, char *file)
 void	cmd_not_found_err(const char *cmd_path, const char *cmd)
 {
 	if (!cmd_path)
+	{
 		ft_printf("%s: command not found: %s\n", PROGRAM_NAME, cmd);
+		free_alloc_mem();
+		exit(EXIT_FAILURE);
+	}
 }
 
 void	*oom_guard(void *p)

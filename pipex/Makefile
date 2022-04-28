@@ -5,7 +5,7 @@ SRCS			= $(wildcard srcs/*.c)
 SRCS_OBJS		= $(SRCS:.c=.o)
 
 CC				= gcc 
-CFLAGS			=  -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I.
 RM				= rm -f
 
 FT_PRINTF		= ft_printf/libftprintf.a

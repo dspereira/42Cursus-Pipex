@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:41:10 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:27:53 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # include "../ft_printf/ft_printf.h"
 
 # define PROGRAM_NAME "pipex"
+
+typedef struct s_files
+{
+	char	*in;
+	char	*out;
+}	t_files; 
 
 typedef struct s_cmd
 {
@@ -73,7 +79,7 @@ t_paths	*get_paths(char **envp);
 void	free_paths(t_paths *paths);
 
 /* get_fds.c */
-t_fds	*get_fds(char *infile, char *outfile, int size);
+t_fds	*get_fds(int size);
 
 /* close_fds.c */
 void	close_fds(t_fds *fds);
@@ -89,7 +95,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 /* error_handling.c */
 int		sys_error(int err);
-int		file_not_found_err(int err, char *file);
+int		file_error(int err, char *file);
 void	cmd_not_found_err(const char *cmd_path, const char *cmd);
 void	*oom_guard(void *p);
 

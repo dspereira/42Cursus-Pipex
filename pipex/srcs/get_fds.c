@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:37:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/28 14:28:06 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	create_pipes(t_fd *fd, int size)
 				fd[btw first and last]	-> for pipes fd
 				fd[last pos]			-> for outfile
 */
-t_fds	*get_fds(char *infile, char *outfile, int size)
+t_fds	*get_fds(int size)
 {
 	t_fds	*fds;
 	t_fd	*fd;
@@ -71,13 +71,6 @@ t_fds	*get_fds(char *infile, char *outfile, int size)
 	fds->fd = init_fd(size);
 	fds->size = size;
 	fd = fds->fd;
-	if (access(outfile, F_OK) == 0)
-	{
-		sys_error(access(outfile, W_OK));
-		sys_error(unlink(outfile));
-	}
-	fd[size - 1].w = sys_error(open(outfile, O_CREAT | O_WRONLY, 00644));
-	fd[0].r = file_not_found_err(open(infile, O_RDONLY), infile);
 	create_pipes(&fd[1], size - 2);
 	return (fds);
 }

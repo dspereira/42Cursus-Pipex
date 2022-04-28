@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_cmds.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/27 21:25:36 by diogo            ###   ########.fr       */
+/*   Updated: 2022/04/28 11:17:39 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_cmd_path(char *cmd, char **paths)
 			ft_strcat(path, cmd);
 		else
 			ft_strcat(path, " ");
-		if (access(path, X_OK) == 0)
+		if (access(path, F_OK | X_OK) == 0)
 			break ;
 		else
 		{
@@ -86,7 +86,7 @@ t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
 			cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
 		else
 			cmd[i].path = 0;
-		cmd_not_found_err(cmd[i].path, cmd[i].cmd[0]);
+		//cmd_not_found_err(cmd[i].path, cmd[i].cmd[0]);
 		i++;
 	}
 	return (cmds);
