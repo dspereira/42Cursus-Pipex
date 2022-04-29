@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alloc_mem.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:36:40 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/29 11:06:32 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_alloc_mem	*alloc_mem(void *elem, int type)
 	if (!mem)
 	{
 		mem = malloc(sizeof(t_alloc_mem));
+		if (!mem)
+			return (0);
 		mem->cmds = 0;
 		mem->fds = 0;
 		mem->paths = 0;
@@ -55,7 +57,7 @@ void	save_alloc_fds(t_fds *fds)
 void	free_alloc_mem(void)
 {
 	t_alloc_mem	*mem;
-
+	
 	mem = alloc_mem(0, NO_TYPE);
 	if (mem && mem->paths)
 		free_paths(mem->paths);

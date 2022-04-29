@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/28 14:29:29 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/29 10:42:05 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	exec_cmd(t_fds *fds, t_cmd cmd, t_fd fd, t_files file)
 			{
 				file_error(access(file.out, W_OK), file.out);
 				file_error(unlink(file.out), file.out);
-
 			}
 			fd.w = file_error(open(file.out, O_CREAT | O_WRONLY, 0644), file.out);
 		}
@@ -36,10 +35,7 @@ void	exec_cmd(t_fds *fds, t_cmd cmd, t_fd fd, t_files file)
 		sys_error(dup2(fd.w, STDOUT_FILENO));
 		close_fds(fds);
 		if (cmd.cmd[0])
-		{
-			execve(cmd.path, cmd.cmd, NULL);
-			exit(EXIT_FAILURE);
-		}
+			sys_error(execve(cmd.path, cmd.cmd, NULL));
 		exit(0);
 	}
 }
