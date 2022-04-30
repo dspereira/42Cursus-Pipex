@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/28 14:16:57 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/04/29 20:11:30 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	file_error(int err, char *file)
 	return (err);
 }
 
-void	cmd_not_found_err(const char *cmd_path, const char *cmd)
+void	cmd_not_found_error(const char *cmd_path, const char *cmd)
 {
 	if (!cmd_path)
 	{

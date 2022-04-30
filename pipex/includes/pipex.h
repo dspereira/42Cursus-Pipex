@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/29 11:03:03 by diogo            ###   ########.fr       */
+/*   Updated: 2022/04/29 16:34:04 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,16 @@ typedef struct s_paths
 	char	**paths;
 }	t_paths;
 
+typedef struct s_data
+{
+	t_cmds	*cmds;
+	t_fds	*fds;
+	t_paths	*paths;
+	t_files files;
+	char **env;
+}	t_data;
+
+
 typedef struct s_alloc_mem
 {
 	t_cmds	*cmds;
@@ -98,7 +108,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 /* error_handling.c */
 int		sys_error(int err);
 int		file_error(int err, char *file);
-void	cmd_not_found_err(const char *cmd_path, const char *cmd);
+void	cmd_not_found_error(const char *cmd_path, const char *cmd);
 void	*oom_guard(void *p);
 
 /* alloc_mem.c */
