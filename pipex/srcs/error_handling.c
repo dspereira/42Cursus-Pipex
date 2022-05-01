@@ -6,11 +6,12 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/29 20:11:30 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 16:48:25 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
 
 int	sys_error(int err)
 {
@@ -25,9 +26,24 @@ int	sys_error(int err)
 
 int	file_error(int err, char *file)
 {
+	int msg_size;
+	char *msg;
+	
 	if (err == -1)
 	{
-		ft_printf("%s: %s: %s\n", PROGRAM_NAME, file, strerror(errno));
+		msg_size = 6;
+		msg_size += ft_strlen(PROGRAM_NAME);
+		msg_size += ft_strlen(strerror(errno));
+		msg_size += ft_strlen(file);
+		msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
+		ft_strcat(msg, PROGRAM_NAME);
+		ft_strcat(msg, ": ");
+		ft_strcat(msg, strerror(errno));
+		ft_strcat(msg, ": ");
+		ft_strcat(msg, file);
+		ft_strcat(msg, "\n");
+		write(2, msg, msg_size);
+		free(msg);
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
@@ -36,9 +52,22 @@ int	file_error(int err, char *file)
 
 void	cmd_not_found_error(const char *cmd_path, const char *cmd)
 {
+	int msg_size;
+	char *msg;
+	
 	if (!cmd_path)
 	{
-		ft_printf("%s: command not found: %s\n", PROGRAM_NAME, cmd);
+		msg_size = 2;
+		msg_size += ft_strlen(PROGRAM_NAME);
+		msg_size += ft_strlen(": command not found: ");
+		msg_size += ft_strlen(cmd);
+		msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
+		ft_strcat(msg, PROGRAM_NAME);
+		ft_strcat(msg, ": command not found: ");
+		ft_strcat(msg, cmd);
+		ft_strcat(msg, "\n");
+		write(2, msg, msg_size);
+		free(msg);
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
