@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 18:08:25 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 18:55:15 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ t_cmd get_command(t_data data, int i)
 	t_cmd cmd;
 
 	cmd = data.cmds->cmd[i];
+	//ft_printf("GET COMANDS |%s| \n", cmd.cmd[0]);
 	cmd_not_found_error(cmd.path, cmd.cmd[0]);
 	return (cmd);
 }
@@ -68,8 +69,6 @@ void	exec_fork(t_data data, int i)
 	{
 		fd = get_fds_to_exec(data, i);
 		cmd = get_command(data, i);
-		printf("PATH: |%s|\n", cmd.path);
-		printf("CMD: |%s|\n", cmd.cmd[0]);
 		make_redirection(data.fds, fd);
 		sys_error(execve(cmd.path, cmd.cmd, data.env));
 		exit(0);

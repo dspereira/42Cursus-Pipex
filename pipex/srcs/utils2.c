@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:39:13 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 16:10:32 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 18:51:23 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ char	*ft_strcat(char *dst, const char *src)
 	int	i;
 	int	j;
 
+	if (!src)
+		return (dst);
+	if (!dst)
+		return (0);
 	i = ft_strlen(dst);
 	j = 0;
 	while (src[j] != '\0')

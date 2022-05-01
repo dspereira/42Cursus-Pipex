@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 16:48:25 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 18:53:50 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	cmd_not_found_error(const char *cmd_path, const char *cmd)
 {
 	int msg_size;
 	char *msg;
-	
+
 	if (!cmd_path)
 	{
 		msg_size = 2;
