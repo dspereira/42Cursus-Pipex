@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 19:58:38 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:09 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # define PROGRAM_NAME "pipex"
 
 //#define malloc(x) NULL
+
+#define NO_TYPE 	0
+#define TYPE_CMDS 	1
+#define TYPE_FDS 	2
+#define TYPE_PATHS 	3
 
 typedef struct s_files
 {
@@ -70,7 +75,6 @@ typedef struct s_data
 	char **env;
 }	t_data;
 
-
 typedef struct s_alloc_mem
 {
 	t_cmds	*cmds;
@@ -110,11 +114,11 @@ int		sys_error(int err);
 int		file_error(int err, char *file);
 void	cmd_not_found_error(const char *cmd_path, const char *cmd);
 void	*oom_guard(void *p);
+void	*oom_guard2(void *p);
 
 /* alloc_mem.c */
-void	save_alloc_paths(t_paths *paths);
-void	save_alloc_cmds(t_cmds *cmds);
-void	save_alloc_fds(t_fds *fds);
+void	init_alloc_mem(void);
+void	save_alloc_mem(void *mem, int type);
 void	free_alloc_mem(void);
 
 #endif

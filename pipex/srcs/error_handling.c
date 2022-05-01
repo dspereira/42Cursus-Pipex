@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 18:53:50 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 21:41:55 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ void	*oom_guard(void *p)
 	{
 		ft_printf("%s: Out of memory!\n", PROGRAM_NAME);
 		free_alloc_mem();
+		exit(EXIT_FAILURE);
+	}
+	return (p);
+}
+
+void	*oom_guard2(void *p)
+{
+	if (!p)
+	{
+		ft_printf("%s: Out of memory!\n", PROGRAM_NAME);
 		exit(EXIT_FAILURE);
 	}
 	return (p);

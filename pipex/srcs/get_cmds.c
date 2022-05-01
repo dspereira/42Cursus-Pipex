@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 18:14:06 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:35 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
 	int		i;
 
 	cmds = init_cmds();
-	save_alloc_cmds(cmds);
+	save_alloc_mem(cmds, TYPE_CMDS);
 	cmds->cmd = init_cmd(size);
 	cmds->size = size;
 	cmd = cmds->cmd;

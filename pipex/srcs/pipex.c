@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 20:02:10 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:17 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(int argc, char **argv, char **env)
 	data.files.in = argv[1];
 	data.files.out = argv[argc - 1];
 	num_cmds = argc - 3;
+	init_alloc_mem();
 	data.paths = get_paths(env);
 	data.fds = get_fds(num_cmds - 1);
 	data.cmds = get_cmds(num_cmds, (argv + 2), data.paths->paths);

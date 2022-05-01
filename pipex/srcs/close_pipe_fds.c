@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:49 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 19:59:12 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:30 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ void	close_pipe_fds(t_fds *fds)
 	if (fd)
 		free(fd);
 	free(fds);
-	save_alloc_fds(0);
+	save_alloc_mem(0, TYPE_FDS);
 }

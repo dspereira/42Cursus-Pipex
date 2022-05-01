@@ -6,52 +6,22 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 19:58:16 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:07 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-#define NO_TYPE 	0
-#define TYPE_CMDS 	1
-#define TYPE_FDS 	2
-#define TYPE_PATHS 	3
+static t_alloc_mem	*alloc_mem(void *elem, int type);
 
-t_alloc_mem	*alloc_mem(void *elem, int type)
+void init_alloc_mem(void)
 {
-	static t_alloc_mem	*mem = 0;
-
-	if (!mem)
-	{
-		mem = malloc(sizeof(t_alloc_mem));
-		if (!mem)
-			return (0);
-		mem->cmds = 0;
-		mem->fds = 0;
-		mem->paths = 0;
-	}
-	if (type == TYPE_CMDS)
-		mem->cmds = (t_cmds *) elem;
-	else if (type == TYPE_FDS)
-		mem->fds = (t_fds *) elem;
-	else if (type == TYPE_PATHS)
-		mem->paths = (t_paths *) elem;
-	return (mem);
+	alloc_mem(0, NO_TYPE);
 }
 
-void	save_alloc_paths(t_paths *paths)
+void	save_alloc_mem(void *mem, int type)
 {
-	alloc_mem(paths, TYPE_PATHS);
-}
-
-void	save_alloc_cmds(t_cmds *cmds)
-{
-	alloc_mem(cmds, TYPE_CMDS);
-}
-
-void	save_alloc_fds(t_fds *fds)
-{
-	alloc_mem(fds, TYPE_FDS);
+	alloc_mem(mem, type);
 }
 
 void	free_alloc_mem(void)
@@ -67,4 +37,24 @@ void	free_alloc_mem(void)
 		close_pipe_fds(mem->fds);
 	if (mem)
 		free(mem);
+}
+
+static t_alloc_mem	*alloc_mem(void *elem, int type)
+{
+	static t_alloc_mem	*mem = 0;
+
+	if (!mem)
+	{
+		mem = oom_guard2(malloc(sizeof(t_alloc_mem)));
+		mem->cmds = 0;
+		mem->fds = 0;
+		mem->paths = 0;
+	}
+	if (type == TYPE_CMDS)
+		mem->cmds = (t_cmds *) elem;
+	else if (type == TYPE_FDS)
+		mem->fds = (t_fds *) elem;
+	else if (type == TYPE_PATHS)
+		mem->paths = (t_paths *) elem;
+	return (mem);
 }

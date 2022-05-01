@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 19:50:35 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 22:11:40 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_fds	*get_fds(int size)
 	t_fd	*fd;
 
 	fds = init_fds();
-	save_alloc_fds(fds);
+	save_alloc_mem(fds, TYPE_FDS);
 	fds->fd = init_fd(size);
 	fds->size = size;
 	fd = fds->fd;
