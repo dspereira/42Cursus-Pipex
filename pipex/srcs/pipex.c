@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 18:55:15 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 19:44:33 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,35 +19,35 @@ t_cmd get_command(t_data data, int i)
 	t_cmd cmd;
 
 	cmd = data.cmds->cmd[i];
-	//ft_printf("GET COMANDS |%s| \n", cmd.cmd[0]);
 	cmd_not_found_error(cmd.path, cmd.cmd[0]);
 	return (cmd);
 }
 
 t_fd get_fds_to_exec(t_data data, int i)
 {
-	t_files file;
-	t_fd fd;
-	t_cmds *cmds;
-	t_fds *fds;
+	t_files	file;
+	t_fd	fd;
+	int		n_cmds;
 
 	file = data.files;
-	cmds = data.cmds;
-	fds = data.fds;
-	
+	n_cmds = data.cmds->size;
+	fd.r = -1;
+	fd.w = -1;
 	if (!i)
-		data.fds->fd[i].r = file_error(open(file.in, O_RDONLY), file.in);
-	else if (i == cmds->size - 1)
+		fd.r = file_error(open(file.in, O_RDONLY), file.in);
+	else if (i == n_cmds - 1)
 	{
 		if (access(file.out, F_OK) == 0)
 		{
 			file_error(access(file.out, W_OK), file.out);
 			file_error(unlink(file.out), file.out);
 		}
-		fds->fd[i + 1].w = file_error(open(file.out, O_CREAT | O_WRONLY, 00644), file.out);		
+		fd.w = file_error(open(file.out, O_CREAT | O_WRONLY, 00644), file.out);		
 	}
-	fd.r = fds->fd[i].r;
-	fd.w = fds->fd[i + 1].w;
+	if (fd.r == -1)
+		fd.r = data.fds->fd[i - 1].r;
+	if (fd.w == -1)
+		fd.w = data.fds->fd[i].w;
 	return (fd);		
 }
 
@@ -107,7 +107,6 @@ int	main(int argc, char **argv, char **env)
 {
 	t_data	data;
 	int		num_cmds;
-	int		size_arr_fd;
 
 	if (argc < 5)
 	{
@@ -119,9 +118,8 @@ int	main(int argc, char **argv, char **env)
 	data.files.in = argv[1];
 	data.files.out = argv[argc - 1];
 	num_cmds = argc - 3;
-	size_arr_fd = num_cmds + 1;
 	data.paths = get_paths(env);
-	data.fds = get_fds(size_arr_fd);
+	data.fds = get_fds(num_cmds - 1);
 	data.cmds = get_cmds(num_cmds, (argv + 2), data.paths->paths);
 	exec_cmds(data);
 	close_fds(data.fds);
