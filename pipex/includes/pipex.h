@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/30 19:21:30 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 19:58:38 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void	free_paths(t_paths *paths);
 /* get_fds.c */
 t_fds	*get_fds(int size);
 
-/* close_fds.c */
-void	close_fds(t_fds *fds);
+/* close_pipe_fds.c */
+void	close_pipe_fds(t_fds *fds);
 
 /* utils.h */
 size_t	ft_strlen(const char *s);

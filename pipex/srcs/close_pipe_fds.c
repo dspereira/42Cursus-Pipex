@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_fds.c                                        :+:      :+:    :+:   */
+/*   close_pipe_fds.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:49 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:36:50 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/05/01 19:59:12 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	close_fds(t_fds *fds)
+void	close_pipe_fds(t_fds *fds)
 {
 	t_fd	*fd;
 	int		i;

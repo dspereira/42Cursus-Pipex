@@ -6,13 +6,11 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 19:44:33 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 20:02:10 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-void	wait_cmds_end(int num_cmds);
 
 t_cmd get_command(t_data data, int i)
 {
@@ -51,11 +49,15 @@ t_fd get_fds_to_exec(t_data data, int i)
 	return (fd);		
 }
 
-void make_redirection(t_fds *all_fds, t_fd fd)
+void make_redirection(t_data data, t_fd fd, int i)
 {
 	sys_error(dup2(fd.r, STDIN_FILENO));
 	sys_error(dup2(fd.w, STDOUT_FILENO));
-	close_fds(all_fds);
+	if (!i)
+		close(fd.r);
+	else if (i == data.cmds->size - 1)
+		close(fd.w);
+	close_pipe_fds(data.fds);
 }
 
 void	exec_fork(t_data data, int i)
@@ -69,7 +71,7 @@ void	exec_fork(t_data data, int i)
 	{
 		fd = get_fds_to_exec(data, i);
 		cmd = get_command(data, i);
-		make_redirection(data.fds, fd);
+		make_redirection(data, fd, i);
 		sys_error(execve(cmd.path, cmd.cmd, data.env));
 		exit(0);
 	}
@@ -77,14 +79,10 @@ void	exec_fork(t_data data, int i)
 
 void	exec_cmds(t_data data)
 {
-	t_fd fd;
-	t_cmds *cmds;
-	t_files	files;
 	int i;
 
-	cmds = data.cmds;
 	i = 0;
-	while (i < cmds->size)
+	while (i < data.cmds->size)
 	{
 		exec_fork(data, i);
 		i++;
@@ -122,7 +120,7 @@ int	main(int argc, char **argv, char **env)
 	data.fds = get_fds(num_cmds - 1);
 	data.cmds = get_cmds(num_cmds, (argv + 2), data.paths->paths);
 	exec_cmds(data);
-	close_fds(data.fds);
+	close_pipe_fds(data.fds);
 	wait_cmds_end(num_cmds);
 	free_alloc_mem();
 }

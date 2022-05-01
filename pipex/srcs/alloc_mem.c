@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/04/29 11:06:32 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/01 19:58:16 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	free_alloc_mem(void)
 	if (mem && mem->cmds)
 		free_cmds(mem->cmds);
 	if (mem && mem->fds)
-		close_fds(mem->fds);
+		close_pipe_fds(mem->fds);
 	if (mem)
 		free(mem);
 }
