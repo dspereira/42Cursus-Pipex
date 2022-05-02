@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 22:11:07 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/02 20:44:24 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static t_alloc_mem	*alloc_mem(void *elem, int type);
 
-void init_alloc_mem(void)
+void	init_alloc_mem(void)
 {
 	alloc_mem(0, NO_TYPE);
 }
@@ -27,7 +27,7 @@ void	save_alloc_mem(void *mem, int type)
 void	free_alloc_mem(void)
 {
 	t_alloc_mem	*mem;
-	
+
 	mem = alloc_mem(0, NO_TYPE);
 	if (mem && mem->paths)
 		free_paths(mem->paths);

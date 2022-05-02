@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 22:11:09 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/02 20:46:45 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,18 @@
 # include <sys/wait.h>
 # include "../ft_printf/ft_printf.h"
 
-# define PROGRAM_NAME "pipex"
+# define PROGRAM_NAME	"pipex"
 
-//#define malloc(x) NULL
-
-#define NO_TYPE 	0
-#define TYPE_CMDS 	1
-#define TYPE_FDS 	2
-#define TYPE_PATHS 	3
+# define NO_TYPE 		0
+# define TYPE_CMDS		1
+# define TYPE_FDS		2
+# define TYPE_PATHS		3
 
 typedef struct s_files
 {
 	char	*in;
 	char	*out;
-}	t_files; 
+}	t_files;
 
 typedef struct s_cmd
 {
@@ -71,8 +69,8 @@ typedef struct s_data
 	t_cmds	*cmds;
 	t_fds	*fds;
 	t_paths	*paths;
-	t_files files;
-	char **env;
+	t_files	files;
+	char	**env;
 }	t_data;
 
 typedef struct s_alloc_mem
@@ -100,6 +98,9 @@ t_fds	*get_fds(int size);
 /* close_pipe_fds.c */
 void	close_pipe_fds(t_fds *fds);
 
+/* exec_cmds.c */
+void	exec_cmds(t_data data);
+
 /* utils.h */
 size_t	ft_strlen(const char *s);
 char	**ft_split(char const *s, char c);
@@ -110,7 +111,7 @@ char	*ft_strcat(char *dst, const char *src);
 char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 
 /* error_handling.c */
-int		sys_error(int err);
+int		sys_error(int err, char *str);
 int		file_error(int err, char *file);
 void	cmd_not_found_error(const char *cmd_path, const char *cmd);
 void	*oom_guard(void *p);

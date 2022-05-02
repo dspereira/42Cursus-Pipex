@@ -6,13 +6,31 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:28 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 22:11:40 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/02 20:33:04 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-t_fds	*init_fds(void)
+static t_fds	*init_fds(void);
+static t_fd		*init_fd(int num_fd);
+static void		create_pipes(t_fd *fd, int size);
+
+t_fds	*get_fds(int size)
+{
+	t_fds	*fds;
+	t_fd	*fd;
+
+	fds = init_fds();
+	save_alloc_mem(fds, TYPE_FDS);
+	fds->fd = init_fd(size);
+	fds->size = size;
+	fd = fds->fd;
+	create_pipes(fd, size);
+	return (fds);
+}
+
+static t_fds	*init_fds(void)
 {
 	t_fds	*fds;
 
@@ -22,7 +40,7 @@ t_fds	*init_fds(void)
 	return (fds);
 }
 
-t_fd	*init_fd(int num_fd)
+static t_fd	*init_fd(int num_fd)
 {
 	t_fd	*fd;
 	int		i;
@@ -38,7 +56,7 @@ t_fd	*init_fd(int num_fd)
 	return (fd);
 }
 
-void	create_pipes(t_fd *fd, int size)
+static void	create_pipes(t_fd *fd, int size)
 {
 	int	i;
 	int	fd_p[2];
@@ -46,23 +64,9 @@ void	create_pipes(t_fd *fd, int size)
 	i = 0;
 	while (i < size)
 	{
-		sys_error(pipe(fd_p));
+		sys_error(pipe(fd_p), 0);
 		fd[i].r = fd_p[0];
 		fd[i].w = fd_p[1];
 		i++;
 	}
-}
-
-t_fds	*get_fds(int size)
-{
-	t_fds	*fds;
-	t_fd	*fd;
-
-	fds = init_fds();
-	save_alloc_mem(fds, TYPE_FDS);
-	fds->fd = init_fd(size);
-	fds->size = size;
-	fd = fds->fd;
-	create_pipes(fd, size);
-	return (fds);
 }

@@ -6,13 +6,41 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/01 22:11:35 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/02 20:37:46 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-t_cmds	*init_cmds(void)
+static t_cmds	*init_cmds(void);
+static t_cmd	*init_cmd(int num_cmds);
+static char		*get_cmd_path(char *cmd, char **paths);
+
+t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
+{
+	t_cmds	*cmds;
+	t_cmd	*cmd;
+	int		i;
+
+	cmds = init_cmds();
+	save_alloc_mem(cmds, TYPE_CMDS);
+	cmds->cmd = init_cmd(size);
+	cmds->size = size;
+	cmd = cmds->cmd;
+	i = 0;
+	while (i < size)
+	{
+		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
+		if (paths)
+			cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
+		else
+			cmd[i].path = 0;
+		i++;
+	}
+	return (cmds);
+}
+
+static t_cmds	*init_cmds(void)
 {
 	t_cmds	*cmds;
 
@@ -22,7 +50,7 @@ t_cmds	*init_cmds(void)
 	return (cmds);
 }
 
-t_cmd	*init_cmd(int num_cmds)
+static t_cmd	*init_cmd(int num_cmds)
 {
 	t_cmd	*cmd;
 	int		i;
@@ -38,7 +66,7 @@ t_cmd	*init_cmd(int num_cmds)
 	return (cmd);
 }
 
-char	*get_cmd_path(char *cmd, char **paths)
+static char	*get_cmd_path(char *cmd, char **paths)
 {
 	char	*path;
 	int		size;
@@ -65,28 +93,4 @@ char	*get_cmd_path(char *cmd, char **paths)
 		i++;
 	}
 	return (path);
-}
-
-t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
-{
-	t_cmds	*cmds;
-	t_cmd	*cmd;
-	int		i;
-
-	cmds = init_cmds();
-	save_alloc_mem(cmds, TYPE_CMDS);
-	cmds->cmd = init_cmd(size);
-	cmds->size = size;
-	cmd = cmds->cmd;
-	i = 0;
-	while (i < size)
-	{
-		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
-		if (paths)
-			cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
-		else
-			cmd[i].path = 0;
-		i++;
-	}
-	return (cmds);
 }

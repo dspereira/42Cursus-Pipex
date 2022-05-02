@@ -3,27 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   free_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:04 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/03/28 12:37:06 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/05/02 20:34:16 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	free_cmd(char **cmd)
-{
-	int	i;
-
-	i = 0;
-	while (cmd[i])
-	{
-		free(cmd[i]);
-		i++;
-	}
-	free(cmd);
-}
+static void	free_cmd(char **cmd);
 
 void	free_cmds(t_cmds *cmds)
 {
@@ -47,4 +36,17 @@ void	free_cmds(t_cmds *cmds)
 		free(cmd);
 	}
 	free(cmds);
+}
+
+static void	free_cmd(char **cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i])
+	{
+		free(cmd[i]);
+		i++;
+	}
+	free(cmd);
 }
