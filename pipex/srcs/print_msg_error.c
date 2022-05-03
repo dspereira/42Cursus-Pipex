@@ -1,42 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   close_pipe_fds.c                                   :+:      :+:    :+:   */
+/*   print_msg_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/28 12:36:49 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/03 11:39:44 by dsilveri         ###   ########.fr       */
+/*   Created: 2022/05/03 12:16:25 by dsilveri          #+#    #+#             */
+/*   Updated: 2022/05/03 12:35:36 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	close_pipe_fds(t_fds *fds)
+void	print_msg_error(char *error, char *str)
 {
-	t_fd	*fd;
-	int		i;
+	int		msg_size;
+	char	*msg;
 
-	if (!fds)
-		return ;
-	fd = fds->fd;
-	i = 0;
-	while (i < fds->size)
-	{
-		if (fd[i].r >= 0)
-		{
-			close(fd[i].r);
-			fd[i].r = -1;
-		}
-		if (fd[i].w >= 0)
-		{
-			close(fd[i].w);
-			fd[i].w = -1;
-		}
-		i++;
-	}
-	if (fd)
-		free(fd);
-	free(fds);
-	save_alloc_mem(0, TYPE_FDS);
+	msg_size = 6;
+	msg_size += ft_strlen(PROGRAM_NAME);
+	msg_size += ft_strlen(error);
+	msg_size += ft_strlen(str);
+	msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
+	ft_strcat(msg, PROGRAM_NAME);
+	ft_strcat(msg, ": ");
+	ft_strcat(msg, error);
+	ft_strcat(msg, ": ");
+	ft_strcat(msg, str);
+	ft_strcat(msg, "\n");
+	write(2, msg, msg_size);
+	free(msg);
 }

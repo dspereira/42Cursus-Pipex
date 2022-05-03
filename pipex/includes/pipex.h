@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:41:09 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/02 20:46:45 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/03 12:37:50 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # define TYPE_CMDS		1
 # define TYPE_FDS		2
 # define TYPE_PATHS		3
+
+//# define malloc(x) NULL
 
 typedef struct s_files
 {
@@ -113,7 +115,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 /* error_handling.c */
 int		sys_error(int err, char *str);
 int		file_error(int err, char *file);
-void	cmd_not_found_error(const char *cmd_path, const char *cmd);
+void	cmd_not_found_error(char *cmd_path, char *cmd);
 void	*oom_guard(void *p);
 void	*oom_guard2(void *p);
 
@@ -121,5 +123,8 @@ void	*oom_guard2(void *p);
 void	init_alloc_mem(void);
 void	save_alloc_mem(void *mem, int type);
 void	free_alloc_mem(void);
+
+/* print_msg_error.c */
+void	print_msg_error(char *error, char *str);
 
 #endif

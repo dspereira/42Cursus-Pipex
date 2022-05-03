@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 16:39:55 by diogo             #+#    #+#             */
-/*   Updated: 2022/05/02 20:27:20 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/03 12:20:12 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,8 @@ static t_fd	get_fds_to_exec(t_data data, int i)
 	if (!i)
 		fd.r = file_error(open(file.in, O_RDONLY), file.in);
 	else if (i == n_cmds - 1)
-	{
-		if (access(file.out, F_OK) == 0)
-		{
-			file_error(access(file.out, W_OK), file.out);
-			file_error(unlink(file.out), file.out);
-		}
-		fd.w = file_error(open(file.out, O_CREAT | O_WRONLY, 0644), file.out);
-	}
+		fd.w = file_error(open(file.out, O_CREAT | O_WRONLY | O_TRUNC, 0644),
+				file.out);
 	if (fd.r == -1)
 		fd.r = data.fds->fd[i - 1].r;
 	if (fd.w == -1)

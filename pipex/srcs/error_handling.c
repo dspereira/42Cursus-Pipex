@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
+/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/02 20:47:43 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/03 12:37:28 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,13 @@
 
 int	sys_error(int err, char *str)
 {
-	int		msg_size;
-	char	*msg;
-
 	if (err == -1)
 	{
+		free_alloc_mem();
 		if (str == 0)
 			perror(PROGRAM_NAME);
 		else
-		{
-			msg_size = 6;
-			msg_size += ft_strlen(PROGRAM_NAME);
-			msg_size += ft_strlen(strerror(errno));
-			msg_size += ft_strlen(str);
-			msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
-			ft_strcat(msg, PROGRAM_NAME);
-			ft_strcat(msg, ": ");
-			ft_strcat(msg, strerror(errno));
-			ft_strcat(msg, ": ");
-			ft_strcat(msg, str);
-			ft_strcat(msg, "\n");
-			write(2, msg, msg_size);
-			free(msg);
-		}
-		free_alloc_mem();
+			print_msg_error(strerror(errno), str);
 		exit(EXIT_FAILURE);
 	}
 	return (err);
@@ -45,49 +28,21 @@ int	sys_error(int err, char *str)
 
 int	file_error(int err, char *file)
 {
-	int		msg_size;
-	char	*msg;
-
 	if (err == -1)
 	{
-		msg_size = 6;
-		msg_size += ft_strlen(PROGRAM_NAME);
-		msg_size += ft_strlen(strerror(errno));
-		msg_size += ft_strlen(file);
-		msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
-		ft_strcat(msg, PROGRAM_NAME);
-		ft_strcat(msg, ": ");
-		ft_strcat(msg, strerror(errno));
-		ft_strcat(msg, ": ");
-		ft_strcat(msg, file);
-		ft_strcat(msg, "\n");
-		write(2, msg, msg_size);
-		free(msg);
 		free_alloc_mem();
+		print_msg_error(strerror(errno), file);
 		exit(EXIT_FAILURE);
 	}
 	return (err);
 }
 
-void	cmd_not_found_error(const char *cmd_path, const char *cmd)
+void	cmd_not_found_error(char *cmd_path, char *cmd)
 {
-	int		msg_size;
-	char	*msg;
-
 	if (!cmd_path)
 	{
-		msg_size = 2;
-		msg_size += ft_strlen(PROGRAM_NAME);
-		msg_size += ft_strlen(": command not found: ");
-		msg_size += ft_strlen(cmd);
-		msg = oom_guard(ft_calloc(msg_size, sizeof(char)));
-		ft_strcat(msg, PROGRAM_NAME);
-		ft_strcat(msg, ": command not found: ");
-		ft_strcat(msg, cmd);
-		ft_strcat(msg, "\n");
-		write(2, msg, msg_size);
-		free(msg);
 		free_alloc_mem();
+		print_msg_error("command not found", cmd);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -96,7 +51,7 @@ void	*oom_guard(void *p)
 {
 	if (!p)
 	{
-		ft_printf("%s: Out of memory!\n", PROGRAM_NAME);
+		write(2, "pipex: Out of memory!\n", strlen("pipex: Out of memory!\n"));
 		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
@@ -107,7 +62,7 @@ void	*oom_guard2(void *p)
 {
 	if (!p)
 	{
-		ft_printf("%s: Out of memory!\n", PROGRAM_NAME);
+		write(2, "pipex: Out of memory!\n", strlen("pipex: Out of memory!\n"));
 		exit(EXIT_FAILURE);
 	}
 	return (p);
