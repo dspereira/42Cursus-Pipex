@@ -6,7 +6,7 @@
 /*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/03 12:37:28 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/05/03 14:38:55 by dsilveri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	sys_error(int err, char *str)
 {
 	if (err == -1)
 	{
-		free_alloc_mem();
 		if (str == 0)
 			perror(PROGRAM_NAME);
 		else
 			print_msg_error(strerror(errno), str);
+		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
 	return (err);
@@ -30,8 +30,8 @@ int	file_error(int err, char *file)
 {
 	if (err == -1)
 	{
-		free_alloc_mem();
 		print_msg_error(strerror(errno), file);
+		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
 	return (err);
@@ -41,8 +41,8 @@ void	cmd_not_found_error(char *cmd_path, char *cmd)
 {
 	if (!cmd_path)
 	{
-		free_alloc_mem();
 		print_msg_error("command not found", cmd);
+		free_alloc_mem();
 		exit(EXIT_FAILURE);
 	}
 }
