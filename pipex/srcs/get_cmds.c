@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/02 20:37:46 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/04 10:24:04 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
 	while (i < size)
 	{
 		cmd[i].cmd = oom_guard(ft_split(m_cmd[i], ' '));
-		if (paths)
+		if (paths && cmd[i].cmd[0])
 			cmd[i].path = get_cmd_path(cmd[i].cmd[0], paths);
 		else
 			cmd[i].path = 0;
@@ -79,10 +79,7 @@ static char	*get_cmd_path(char *cmd, char **paths)
 		path = oom_guard(ft_calloc(size + 1, sizeof(char)));
 		ft_strcat(path, paths[i]);
 		ft_strcat(path, "/");
-		if (cmd)
-			ft_strcat(path, cmd);
-		else
-			ft_strcat(path, " ");
+		ft_strcat(path, cmd);
 		if (access(path, F_OK | X_OK) == 0)
 			break ;
 		else

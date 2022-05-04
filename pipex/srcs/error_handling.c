@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsilveri <dsilveri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:36:58 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/03 14:38:55 by dsilveri         ###   ########.fr       */
+/*   Updated: 2022/05/04 10:16:55 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	file_error(int err, char *file)
 
 void	cmd_not_found_error(char *cmd_path, char *cmd)
 {
-	if (!cmd_path)
+	if (!cmd_path || !cmd)
 	{
 		print_msg_error("command not found", cmd);
 		free_alloc_mem();

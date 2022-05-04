@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:44 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/02 20:28:34 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/04 10:06:35 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **env)
 
 	if (argc < 5)
 	{
-		ft_printf("%s: Wrong number of parametersn\n", PROGRAM_NAME);
-		ft_printf("Usage \"./pipex infile cmd1 cmd2 ... cmdn outfile\"\n");
+		ft_printf("%s: Wrong number of parameters\n", PROGRAM_NAME);
+		ft_printf("Usage: \"./pipex infile cmd1 cmd2 ... cmdn outfile\"\n");
 		return (0);
 	}
 	data.env = env;
