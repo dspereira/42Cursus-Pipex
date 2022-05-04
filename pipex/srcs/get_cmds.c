@@ -6,7 +6,7 @@
 /*   By: diogo <diogo@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/28 12:37:21 by dsilveri          #+#    #+#             */
-/*   Updated: 2022/05/04 10:24:04 by diogo            ###   ########.fr       */
+/*   Updated: 2022/05/04 13:01:08 by diogo            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static t_cmds	*init_cmds(void);
 static t_cmd	*init_cmd(int num_cmds);
+static int		is_cmd_path(char *cmd);
 static char		*get_cmd_path(char *cmd, char **paths);
 
 t_cmds	*get_cmds(int size, char **m_cmd, char **paths)
@@ -66,6 +67,20 @@ static t_cmd	*init_cmd(int num_cmds)
 	return (cmd);
 }
 
+static int	is_cmd_path(char *cmd)
+{
+	int	i;
+
+	i = 0;
+	while (cmd[i] != '\0')
+	{
+		if (cmd[i] == '/')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static char	*get_cmd_path(char *cmd, char **paths)
 {
 	char	*path;
@@ -77,17 +92,19 @@ static char	*get_cmd_path(char *cmd, char **paths)
 	{
 		size = ft_strlen(paths[i]) + ft_strlen(cmd) + 1;
 		path = oom_guard(ft_calloc(size + 1, sizeof(char)));
-		ft_strcat(path, paths[i]);
-		ft_strcat(path, "/");
-		ft_strcat(path, cmd);
-		if (access(path, F_OK | X_OK) == 0)
-			break ;
+		if (is_cmd_path(cmd))
+			ft_strcat(path, cmd);
 		else
 		{
+			ft_strcat(path, paths[i]);
+			ft_strcat(path, "/");
+			ft_strcat(path, cmd);
+		}
+		if (access(path, F_OK | X_OK) == 0)
+			return (path);
+		else
 			free(path);
-			path = 0;
-		}	
 		i++;
 	}
-	return (path);
+	return (0);
 }
