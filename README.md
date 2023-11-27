@@ -3,7 +3,7 @@
 
 ## License
 
-This project is licensed under the [MIT License]([https://github.com/dspereira/42Cursus-Printf/blob/main/License.md](https://github.com/dspereira/42Cursus-Pipex/blob/main/LICENSE)).
+This project is licensed under the [MIT License](https://github.com/dspereira/42Cursus-Printf/blob/main/License.md](https://github.com/dspereira/42Cursus-Pipex/blob/main/LICENSE).
 
 ## Contact
 
