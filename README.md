@@ -18,16 +18,12 @@ This project is designed to work on Linux and macOS.
 
 Clone repo:
 ```shell
-git clone https://github.com/dspereira/42Cursus-Pipex.git pipex
+git clone https://github.com/dspereira/42Cursus-Pipex.git pipex && cd pipex
 ```
 
 Build:
 ```shell
 make
-```
-or
-```shell
-make re
 ```
 
 Usage example:
