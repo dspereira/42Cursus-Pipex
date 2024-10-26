@@ -17,7 +17,7 @@ all: $(NAME)
 
 $(NAME): $(SRCS_OBJS)
 	$(MAKE_FTPRINTF)
-	$(CC) $(SRCS_OBJS) $(FT_PRINTF) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS_OBJS) $(FT_PRINTF) -o $(NAME)
 
 clean:
 	$(CLEAN_FTPRINTF)
